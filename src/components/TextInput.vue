@@ -1,7 +1,9 @@
 <template>
   <div>
-    <div>{{ this.nameBox }}</div>
-    <textarea name="" id="" cols="30" rows="10"></textarea>
+    <md-field>
+      <label>{{ this.nameBox }}</label>
+      <md-textarea v-model="textValue"></md-textarea>
+    </md-field>
   </div>
 </template>
 
@@ -9,6 +11,11 @@
 export default {
   props: {
     nameBox: String
+  },
+  data: () => {
+    return {
+      textValue: "la bise ma poule"
+    }
   }
 };
 </script>

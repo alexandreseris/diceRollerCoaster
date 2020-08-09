@@ -1,11 +1,27 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/" class="menuItem">Home</router-link>
-      <router-link to="/newCharacter" class="menuItem"
-        >Nouveau Personnage</router-link
+      <router-link
+        v-for="routeItem in routes"
+        :key="routeItem.path"
+        :to="routeItem.path"
+        v-slot="{ href, navigate, isActive, isExactActive }"
+        :title="routeItem.label"
       >
-      <router-link to="/profilList" class="menuItem">Profils</router-link>
+        <md-button
+          class="md-primary"
+          :class="[
+            isActive && 'router-link-active',
+            isExactActive && 'router-link-exact-active'
+          ]"
+          :href="href"
+          :routeItem="routeItem"
+          @click="navigate"
+        >
+          <md-icon>{{ routeItem.icon }}</md-icon>
+          {{ routeItem.label }}
+        </md-button>
+      </router-link>
     </div>
     <div id="routerViewContainer">
       <router-view />
@@ -14,8 +30,14 @@
 </template>
 
 <script>
+import router from "@/router/index.js";
 export default {
-  name: "App"
+  name: "App",
+  data: function() {
+    return {
+      routes: router.options.routes
+    };
+  }
 };
 </script>
 
@@ -28,17 +50,16 @@ export default {
   flex-wrap: wrap;
   height: 3em;
 }
-#nav .menuItem {
+#nav * {
   text-align: center;
   margin: auto;
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 
-// style global pour toute l'appli
-* {
-  background-color: rgb(30, 30, 30);
-  color: rgb(204, 204, 204);
+#nav .router-link-exact-active {
+  color: white;
 }
+
 #routerViewContainer {
   display: flex;
   justify-content: space-around;
@@ -48,8 +69,44 @@ export default {
   width: 50vw;
 }
 
-// import des libraires
-@import "../node_modules/bootstrap/scss/bootstrap.scss";
+// config des librairies
+@import "~vue-material/dist/theme/engine"; // Import the theme engine
+@include md-register-theme(
+  "default",
+  (
+    primary: md-get-palette-color(bluegrey, 400),
+    accent: md-get-palette-color(bluegrey, 800),
+    theme: dark // This can be dark or light
+  )
+);
+// on rajoute des couleurs, à utiliser avec md-theme-nomDuTheme
+@include md-register-theme(
+  "danger",
+  (
+    primary: md-get-palette-color(red, 400),
+    accent: md-get-palette-color(red, 800)
+  )
+);
+@include md-register-theme(
+  "success",
+  (
+    primary: md-get-palette-color(green, 400),
+    accent: md-get-palette-color(green, 800)
+  )
+);
+@include md-register-theme(
+  "info",
+  (
+    primary: md-get-palette-color(teal, 300),
+    accent: md-get-palette-color(teal, 800)
+  )
+);
+@import "~vue-material/dist/theme/all"; // Apply the theme
+
+// reconfig des librairies
+.md-button {
+  text-transform: none;
+}
 
 // style spécifique sur body, ça marche pas avant :/
 body {

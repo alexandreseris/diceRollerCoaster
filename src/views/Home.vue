@@ -1,16 +1,40 @@
 <template>
   <div id="mainVue" class="vueContainer">
-    <character-name />
+    <md-field md-inline>
+      <md-input v-model="characterName"></md-input>
+    </md-field>
     <div class="rollContainer">
-      <manual-input />
-      <roll-button />
+      <md-field>
+        <label>Saisie Manuelle</label>
+        <md-input v-model="manualRollInput" type="number"></md-input>
+      </md-field>
+      <div class="rollButtonContainer">
+        <md-button
+          v-on:click="this.roll"
+          class="md-theme-info md-raised md-primary"
+          >ROULLLLERRR</md-button
+        >
+        <md-toolbar class="md-accent md-title">{{ this.rollRes }}</md-toolbar>
+      </div>
     </div>
-    <div>Statistiques</div>
     <div class="statContainer">
-      <stat-array v-bind:statList="statList" />
-      <stat-intervals v-bind:statIntervals="statIntervals" />
+      <div class="statValueTable">
+        <md-table>
+          <md-table-row v-for="stat in statList" v-bind:key="stat.name">
+            <md-table-cell>{{ stat.name }}</md-table-cell>
+            <md-table-cell>{{ stat.value }}</md-table-cell>
+          </md-table-row>
+        </md-table>
+      </div>
+      <div class="statIntervalTable">
+        <md-table>
+          <md-table-row v-for="int in statIntervals" v-bind:key="int">
+            <md-table-cell>{{ int }}</md-table-cell>
+            <md-table-cell>0</md-table-cell>
+          </md-table-row>
+        </md-table>
+      </div>
     </div>
-    <div>Points</div>
     <div class="pointContainer">
       <point-counter
         v-for="pointElem in pointLs"
@@ -29,30 +53,20 @@
 </template>
 
 <script>
-import CharacterName from "@/components/CharacterName.vue";
-import ManualInput from "@/components/ManualInput.vue";
-import RollButton from "@/components/RollButton.vue";
-import StatArray from "@/components/statistics/StatArray.vue";
-import StatIntervals from "@/components/statistics/StatIntervals.vue";
 import PointCounter from "@/components/PointCounter.vue";
 import TextInput from "@/components/TextInput.vue";
 
 export default {
   name: "Home",
   components: {
-    CharacterName,
-    ManualInput,
-    RollButton,
-    StatArray,
-    StatIntervals,
     PointCounter,
     TextInput
   },
   data: function() {
     return {
       pointLs: [
-        { name: "LALA", current: 123, max: 300 },
-        { name: "LOLO", current: 2, max: 10000 }
+        { name: "Santé", current: 123, max: 300 },
+        { name: "Mana", current: 2, max: 10000 }
       ],
       textBoxes: ["Notes", "Equipement", "Description"],
       statList: [
@@ -65,8 +79,16 @@ export default {
         "Echec",
         "Réussite",
         "Réussite critique"
-      ]
+      ],
+      rollRes: 100,
+      characterName: "JEAN MIMI",
+      manualRollInput: 0
     };
+  },
+  methods: {
+    roll: function() {
+      this.rollRes = String(Math.random()).slice(0, 5);
+    }
   }
 };
 </script>
@@ -75,11 +97,10 @@ export default {
 div.rollContainer {
   display: flex;
 }
-div.statContainer * {
+div.statContainer > * {
   display: inline-block;
 }
 div.pointContainer * {
   display: inline-block;
-  border: 1px solid black;
 }
 </style>

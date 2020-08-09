@@ -1,0 +1,20 @@
+à faire:
+revoir le style qui reste un peu dégueu
+mettre le menu dans un menu burger pour gagner un peu de place
+    ou des plus petits boutons sur le coté et faire pop des objets Dialog (cf material)
+faire un roll de saisie manuel plus complet: x dés maxDés
+voir les trucs empty stat pour notamment les tableaux lors du param d'une partie
+
+
+
+utilisatiosn des boutons (et des thèmes)
+
+clair sans fond
+<md-button class="md-theme-info md-primary">TEST</md-button>
+clair avec fond
+<md-button class="md-theme-info md-raised md-primary">TEST</md-button>
+
+foncé sans fond
+<md-button class="md-theme-info md-accent">TEST</md-button>
+foncé avec fond
+<md-button class="md-theme-info md-raised md-accent">TEST</md-button>

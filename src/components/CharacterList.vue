@@ -1,15 +1,17 @@
 <template>
   <div class="characterList">
-    <button v-on:click="show" class="profil">{{ profilName + " : " }}</button>
-    <button
+    <md-button v-on:click="show" class="md-raised md-accent">{{
+      profilName
+    }}</md-button>
+    <md-button
       v-on:click="loadCharacter"
       v-show="showed"
       v-for="character in characterList"
       v-bind:key="character"
-      class="character"
+      class="md-raised md-primary"
     >
       {{ character }}
-    </button>
+    </md-button>
   </div>
 </template>
 
@@ -44,11 +46,5 @@ export default {
 <style scoped>
 button {
   font-weight: bold;
-}
-button.profil {
-  color: red;
-}
-button.character {
-  color: blue;
 }
 </style>

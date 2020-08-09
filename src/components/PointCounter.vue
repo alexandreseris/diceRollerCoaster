@@ -1,8 +1,10 @@
 <template>
   <div>
-    <div>{{ this.namePoint }}</div>
-    <span>{{ this.currentPoint }}</span> /
-    <span>{{ this.maxPoint }}</span>
+    <md-content>{{ this.namePoint }}</md-content>
+    <md-toolbar>
+      <span>{{ this.currentPoint }}</span> /
+      <span>{{ this.maxPoint }}</span></md-toolbar
+    >
   </div>
 </template>
 

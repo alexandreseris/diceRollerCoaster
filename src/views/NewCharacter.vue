@@ -1,29 +1,26 @@
 <template>
   <div class="vueContainer">
-    <form>
-      <label for="characterFormProfilInput">Nom du profil</label>
-      <input
-        id="characterFormProfilInput"
-        class="form-control"
-        name="characterFormProfilInput"
-        list="characterFormProfilInputList"
-        required
-      />
-      <datalist id="characterFormProfilInputList">
-        <!-- <option value="VALEUR">VALEUR</option> options à rajouter via api -->
-      </datalist>
+    <form action="" method="get" class="form-example">
+      <md-autocomplete v-model="selectedProfil" :md-options="profils">
+        <label>Nom du profil</label>
+      </md-autocomplete>
       <div id="characterFormButtonContainer">
-        <button id="characterFormSend" class="btn btn-dark" type="button">
+        <md-button
+          class="md-theme-success md-raised md-accent"
+          id="characterFormSend"
+        >
           Envoyer
-        </button>
-        <!-- <button id="characterFormCancel" class="btn btn-danger" type="button">
-        Annuler
-      </button> -->
+        </md-button>
       </div>
     </form>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data: () => ({
+    selectedProfil: null,
+    profils: ["machin1", "machin2"]
+  })
+};
 </script>

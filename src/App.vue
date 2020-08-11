@@ -1,27 +1,28 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link
-        v-for="routeItem in routes"
-        :key="routeItem.path"
-        :to="routeItem.path"
-        v-slot="{ href, navigate, isActive, isExactActive }"
-        :title="routeItem.label"
-      >
-        <md-button
-          class="md-primary"
-          :class="[
-            isActive && 'router-link-active',
-            isExactActive && 'router-link-exact-active'
-          ]"
-          :href="href"
-          :routeItem="routeItem"
-          @click="navigate"
-        >
-          <md-icon>{{ routeItem.icon }}</md-icon>
-          {{ routeItem.label }}
-        </md-button>
-      </router-link>
+      <!-- afficher le menu -->
+      <md-button class="md-icon-button" @click="showNavigation = true">
+        <md-icon>menu</md-icon>
+      </md-button>
+      <!-- tag contenant le menu -->
+      <md-drawer :md-active.sync="showNavigation" md-fixed md-swipeable>
+        <md-toolbar class="md-transparent" md-elevation="3">
+          <p class="labelRouter"><span class="md-title">Menu</span></p>
+        </md-toolbar>
+        <md-list>
+          <md-list-item v-for="routeItem in routes" :key="routeItem.path">
+            <md-button
+              :to="routeItem.path"
+              class="md-primary routerButton"
+              :routeItem="routeItem"
+            >
+              <md-icon>{{ routeItem.icon }}</md-icon>
+              {{ routeItem.label }}
+            </md-button>
+          </md-list-item>
+        </md-list>
+      </md-drawer>
     </div>
     <div id="routerViewContainer">
       <router-view />
@@ -35,29 +36,22 @@ export default {
   name: "App",
   data: function() {
     return {
-      routes: router.options.routes
+      routes: router.options.routes,
+      showNavigation: false
     };
   }
 };
 </script>
 
 <style lang="scss">
-// style spécifique au composant, on ne peut pas stacker un style scoped et un style global donc penser à faire des selection précises
-#nav {
-  background-color: rgb(50, 50, 50);
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  height: 3em;
-}
-#nav * {
-  text-align: center;
-  margin: auto;
-  font-size: 1.2em;
-}
-
 #nav .router-link-exact-active {
   color: white;
+}
+
+.routerButton,
+.labelRouter {
+  width: 100%;
+  text-align: center;
 }
 
 #routerViewContainer {
@@ -68,7 +62,6 @@ export default {
   margin-top: 2vh;
   width: 50vw;
 }
-
 // config des librairies
 @import "~vue-material/dist/theme/engine"; // Import the theme engine
 @include md-register-theme(
@@ -108,11 +101,26 @@ export default {
   text-transform: none;
 }
 
-// style spécifique sur body, ça marche pas avant :/
+// style spécifique sur body, et style global sur l'appli
 body {
   margin-top: 0vh;
   margin-bottom: 0vh;
   margin-left: 1vw;
   margin-right: 1vw;
+}
+
+// redisgn des input number
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"]:invalid {
+  box-shadow: none;
 }
 </style>

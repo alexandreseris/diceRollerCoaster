@@ -32,16 +32,10 @@ const routes = [{
     }
 ];
 
-// config vue router pour material
-// const linkActiveClass = 'activeRouterLink'
-// Vue.material.router.linkActiveClass = linkActiveClass // pass custom class to Vue Material
-// lève une erreur Uncaught TypeError: vue__WEBPACK_IMPORTED_MODULE_1__.default.material is undefinedà creuser
-
 const router = new VueRouter({
     mode: "history",
     base: process.env.BASE_URL,
-    routes,
-    // linkActiveClass
+    routes
 });
 
 export default router;

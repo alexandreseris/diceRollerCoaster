@@ -11,7 +11,9 @@ import {
   MdMenu,
   MdContent,
   MdTable,
-  MdToolbar
+  MdToolbar,
+  MdDrawer,
+  MdSnackbar
 } from "vue-material/dist/components";
 Vue.use(MdButton);
 Vue.use(MdIcon);
@@ -22,6 +24,8 @@ Vue.use(MdMenu);
 Vue.use(MdContent);
 Vue.use(MdTable);
 Vue.use(MdToolbar);
+Vue.use(MdDrawer);
+Vue.use(MdSnackbar);
 
 import router from "./router";
 import store from "./store";

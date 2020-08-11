@@ -41,6 +41,11 @@ Vue.config.productionTip = true;
 // }
 // };
 
+// création d'une vue globale qui permettra de gérer la communication entre composants via des évènements
+// utilisation: dabns le composant, dans le hook created: this.$eventBus.$on("nomevent", data)
+// où on émettre: this.$eventBus.$emit("openedProfil", this);
+Vue.prototype.$eventBus = new Vue();
+
 new Vue({
   router,
   store,

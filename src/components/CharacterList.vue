@@ -32,13 +32,20 @@ export default {
         this.showed = false;
       } else {
         this.showed = true;
-        // emmetre un evènement pour fermer les autres characterlist ouvertes
+        this.$eventBus.$emit("openedProfil", this);
       }
     },
     loadCharacter: function(event) {
       console.log(this.profilName);
       console.log(event.target); // chargement du profil à faire via appel API, param: profil et character
     }
+  },
+  created() {
+    this.$eventBus.$on("openedProfil", openedComp => {
+      if (openedComp !== this) {
+        this.showed = false;
+      }
+    });
   }
 };
 </script>

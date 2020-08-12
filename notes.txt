@@ -1,13 +1,16 @@
 à faire:
-revoir le style qui reste un peu dégueu
-mettre le menu dans un menu burger pour gagner un peu de place
-    ou des plus petits boutons sur le coté et faire pop des objets Dialog (cf material)
-faire un roll de saisie manuel plus complet: x dés maxDés
 voir les trucs empty stat pour notamment les tableaux lors du param d'une partie
+tester la communication via les event pour communiquer entre components
+revoir le style qui reste un peu dégueu
+faire un composant de message via des banières pour compléter les snackbar (voir si possible de changer la taille de ce truc aussi qui est un peu limité ou au moins de mettre des retours à la ligne??)
+
+trucs qui ont pas marché:
+v-on:input: accéder à l'event dans la fonction de callback
+changer la couleur de fond ou de police dans un md-input
 
 
-
-utilisatiosn des boutons (et des thèmes)
+PENSE-BETE
+utilisation des boutons (et des thèmes au passage)
 
 clair sans fond
 <md-button class="md-theme-info md-primary">TEST</md-button>

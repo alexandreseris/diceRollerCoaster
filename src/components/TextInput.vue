@@ -15,7 +15,7 @@ export default {
   data: () => {
     return {
       textValue: "la bise ma poule"
-    }
+    };
   }
 };
 </script>

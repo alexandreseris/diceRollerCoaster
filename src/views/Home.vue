@@ -1,17 +1,38 @@
 <template>
   <div id="mainVue" class="vueContainer">
+    <message-box message="tatamère"></message-box>
     <md-field md-inline>
       <md-input v-model="characterName"></md-input>
     </md-field>
     <div class="rollContainer">
-      <md-field>
-        <label>Saisie Manuelle</label>
-        <md-input v-model="manualRollInput" type="number"></md-input>
-      </md-field>
+      <div class="manualInputContainer">
+        <md-field>
+          <label>Saisie Manuelle</label>
+          <md-input
+            v-model="manualRollNumberDice"
+            type="number"
+            :min="manualRollNumberDiceIntervals[0]"
+            :max="manualRollNumberDiceIntervals[1]"
+            v-on:change="
+              checkInputIntervals($event, manualRollNumberDiceIntervals)
+            "
+          ></md-input>
+        </md-field>
+        <md-toolbar class="md-dense md-transparent" md-elevation="0"
+          >dés</md-toolbar
+        >
+        <md-field>
+          <md-input
+            v-model="manualRollValue"
+            type="number"
+            :min="manualRollValueIntervals[0]"
+            :max="manualRollValueIntervals[1]"
+            v-on:change="checkInputIntervals($event, manualRollValueIntervals)"
+          ></md-input>
+        </md-field>
+      </div>
       <div class="rollButtonContainer">
-        <md-button
-          v-on:click="this.roll"
-          class="md-theme-info md-raised md-primary"
+        <md-button v-on:click="roll" class="md-theme-info md-raised md-primary"
           >ROULLLLERRR</md-button
         >
         <md-toolbar class="md-accent md-title">{{ this.rollRes }}</md-toolbar>
@@ -55,12 +76,14 @@
 <script>
 import PointCounter from "@/components/PointCounter.vue";
 import TextInput from "@/components/TextInput.vue";
+import MessageBox from "@/components/MessageBox.vue";
 
 export default {
   name: "Home",
   components: {
     PointCounter,
-    TextInput
+    TextInput,
+    MessageBox
   },
   data: function() {
     return {
@@ -82,10 +105,31 @@ export default {
       ],
       rollRes: 100,
       characterName: "JEAN MIMI",
-      manualRollInput: 0
+      manualRollNumberDice: 0,
+      manualRollValue: 0,
+      manualRollNumberDiceIntervals: [1, 100],
+      manualRollValueIntervals: [2, 1000]
     };
   },
   methods: {
+    checkInputIntervals: function(event, interval) {
+      console.log("EVENEMENT");
+      console.log(event);
+      let invalidInput = false;
+      if (isNaN(event.target.value)) {
+        invalidInput = true;
+      } else {
+        let inpVal = parseInt(event.target.value, 10);
+        if (inpVal < interval[0] || inpVal > interval[1]) {
+          invalidInput = true;
+        }
+      }
+      if (invalidInput) {
+        event.target.classList.add("invalidForm");
+      } else {
+        event.target.classList.remove("invalidForm");
+      }
+    },
     roll: function() {
       this.rollRes = String(Math.random()).slice(0, 5);
     }
@@ -94,8 +138,11 @@ export default {
 </script>
 
 <style scoped>
-div.rollContainer {
+div.rollContainer,
+.rollButtonContainer,
+.manualInputContainer {
   display: flex;
+  justify-content: space-between;
 }
 div.statContainer > * {
   display: inline-block;

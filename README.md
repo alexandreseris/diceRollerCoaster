@@ -2,6 +2,8 @@
 
 *time to roll some dice my men* :O
 
+**THIS PROJECT IS NOT FINISHED, run it at your own risk!!!**
+
 ## Project setup
 
 ```shell

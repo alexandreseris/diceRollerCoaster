@@ -1,12 +1,12 @@
 <template>
   <div id="mainVue" class="vueContainer">
     <message-box message="tatamère"></message-box>
-    <md-field md-inline>
+    <md-field class="textcenter" md-inline>
       <md-input v-model="characterName"></md-input>
     </md-field>
     <div class="rollContainer">
       <div class="manualInputContainer">
-        <md-field>
+        <md-field class="defaultWidth">
           <label>Saisie Manuelle</label>
           <md-input
             v-model="manualRollNumberDice"
@@ -18,10 +18,8 @@
             "
           ></md-input>
         </md-field>
-        <md-toolbar class="md-dense md-transparent" md-elevation="0"
-          >dés</md-toolbar
-        >
-        <md-field>
+        <md-toolbar class="md-dense md-transparent defaultWidth" md-elevation="0">dés</md-toolbar>
+        <md-field class="defaultWidth">
           <md-input
             v-model="manualRollValue"
             type="number"
@@ -32,10 +30,10 @@
         </md-field>
       </div>
       <div class="rollButtonContainer">
-        <md-button v-on:click="roll" class="md-theme-info md-raised md-primary"
-          >ROULLLLERRR</md-button
-        >
-        <md-toolbar class="md-accent md-title">{{ this.rollRes }}</md-toolbar>
+        <md-button v-on:click="roll" class="customIconButton md-theme-info md-primary" id="rollButton">
+          <md-icon :md-src="require('@/assets/rolling-dices.svg')" class="customIcon"></md-icon>
+        </md-button>
+        <md-toolbar class="md-accent md-title textcenter">{{ this.rollRes }}</md-toolbar>
       </div>
     </div>
     <div class="statContainer">
@@ -58,6 +56,7 @@
     </div>
     <div class="pointContainer">
       <point-counter
+        class="textcenter"
         v-for="pointElem in pointLs"
         v-bind:key="pointElem.name"
         v-bind:name-point="pointElem.name"
@@ -65,11 +64,7 @@
         v-bind:max-point="pointElem.max"
       />
     </div>
-    <text-input
-      v-for="textBox in textBoxes"
-      v-bind:key="textBox"
-      v-bind:name-box="textBox"
-    />
+    <text-input v-for="textBox in textBoxes" v-bind:key="textBox" v-bind:name-box="textBox" />
   </div>
 </template>
 
@@ -131,23 +126,68 @@ export default {
       }
     },
     roll: function() {
-      this.rollRes = String(Math.random()).slice(0, 5);
+      this.rollRes = String(Math.round(Math.random() * 100));
     }
   }
 };
 </script>
 
 <style scoped>
+#mainVue {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* align-items: flex-start; */
+}
+
+div.rollContainer,
+.rollButtonContainer,
+.manualInputContainer,
+.statContainer,
+.pointContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 div.rollContainer,
 .rollButtonContainer,
 .manualInputContainer {
-  display: flex;
   justify-content: space-between;
 }
-div.statContainer > * {
-  display: inline-block;
+
+.statContainer {
+  justify-content: space-around;
 }
-div.pointContainer * {
-  display: inline-block;
+
+.pointContainer {
+  justify-content: center;
 }
+
+div.rollContainer,
+.statContainer,
+.pointContainer,
+.manualInputContainer {
+  flex-wrap: wrap;
+}
+
+.rollButtonContainer:nth-child(2) {
+  flex: 2;
+}
+
+.defaultWidth {
+  width: initial;
+}
+
+.customIconButton {
+  height: 85%;
+}
+.customIcon {
+  width: initial;
+  min-width: initial;
+  height: initial;
+  min-height: initial;
+  font-size: initial !important;
+}
+
 </style>

@@ -4,7 +4,7 @@
     :md-duration="isInfinity ? Infinity : duration"
     :md-persistent="persistent"
     :md-active.sync="showSnackbar"
-    :style="style"
+    :style="styleObj"
   >
     <span>{{ message }}</span>
     <md-button
@@ -23,7 +23,7 @@ export default {
     isInfinity: { type: Boolean, default: true },
     persistent: { type: Boolean, default: false },
     duration: { type: Number, default: 4000 },
-    style: { type: Object },
+    styleObj: { type: Object },
     message: String
   },
   data: function() {

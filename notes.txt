@@ -1,12 +1,14 @@
 à faire:
-voir les trucs empty stat pour notamment les tableaux lors du param d'une partie
-tester la communication via les event pour communiquer entre components
-revoir le style qui reste un peu dégueu
 faire un composant de message via des banières pour compléter les snackbar (voir si possible de changer la taille de ce truc aussi qui est un peu limité ou au moins de mettre des retours à la ligne??)
 
 trucs qui ont pas marché:
 v-on:input: accéder à l'event dans la fonction de callback
 changer la couleur de fond ou de police dans un md-input
+
+ajouter des types de stat sur la tableau de stat
+ajouter un compteur de point
+faire des boutons pour cacher les parties non voulues (nom perso, tableau de stat, points, chaque textarea)
+espacer verticalement les éléments
 
 
 PENSE-BETE

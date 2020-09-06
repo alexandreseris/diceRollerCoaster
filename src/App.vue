@@ -73,6 +73,7 @@ export default {
   )
 );
 // on rajoute des couleurs, à utiliser avec md-theme-nomDuTheme
+// couleurs dispos: https://vuematerial.io/themes/configuration
 @include md-register-theme(
   "danger",
   (
@@ -90,8 +91,8 @@ export default {
 @include md-register-theme(
   "info",
   (
-    primary: md-get-palette-color(teal, 300),
-    accent: md-get-palette-color(teal, 800)
+    primary: md-get-palette-color(blue, 200),
+    accent: md-get-palette-color(blue, 900)
   )
 );
 @import "~vue-material/dist/theme/all"; // Apply the theme
@@ -102,11 +103,15 @@ export default {
 }
 
 // style spécifique sur body, et style global sur l'appli
-body {
-  margin-top: 0vh;
-  margin-bottom: 0vh;
-  margin-left: 1vw;
-  margin-right: 1vw;
+// body {
+//   margin-top: 0vh;
+//   margin-bottom: 0vh;
+//   margin-left: 0.5vw;
+//   margin-right: 0.5vw;
+// }
+
+.textcenter, .textcenter * {
+  text-align: center;
 }
 
 // redisgn des input number

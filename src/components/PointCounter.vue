@@ -1,10 +1,10 @@
 <template>
-  <div>
-    <md-content>{{ this.namePoint }}</md-content>
+  <div class="container">
     <md-toolbar>
-      <span>{{ this.currentPoint }}</span> /
-      <span>{{ this.maxPoint }}</span></md-toolbar
-    >
+      <div class="pointName">{{ this.namePoint }}</div>
+      <span class="pointValue">{{ this.currentPoint }}</span>
+      <span class="pointMax">{{ this.maxPoint }}</span>
+    </md-toolbar>
   </div>
 </template>
 
@@ -17,3 +17,16 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.pointName::after {
+  content: ":";
+}
+.pointValue::before {
+  content: " ";
+  white-space: pre;
+}
+.pointValue::after {
+  content: "/";
+}
+</style>

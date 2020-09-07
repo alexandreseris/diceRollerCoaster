@@ -39,9 +39,16 @@
     <div class="statContainer">
       <div class="statValueTable">
         <md-table>
-          <md-table-row v-for="stat in statList" v-bind:key="stat.name">
+          <md-table-row v-for="stat in statList" v-bind:key="stat.name" md-selectable="single">
             <md-table-cell>{{ stat.name }}</md-table-cell>
             <md-table-cell>{{ stat.value }}</md-table-cell>
+          </md-table-row>
+          <md-table-row>
+            <md-table-cell>
+              <mb-button class="md-icon-button">
+                <md-icon>add</md-icon>
+              </mb-button>
+            </md-table-cell>
           </md-table-row>
         </md-table>
       </div>
@@ -127,6 +134,9 @@ export default {
     },
     roll: function() {
       this.rollRes = String(Math.round(Math.random() * 100));
+    },
+    selectStat: function(item) {
+      console.log(item)
     }
   }
 };

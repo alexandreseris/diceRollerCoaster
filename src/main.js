@@ -13,7 +13,9 @@ import {
   MdTable,
   MdToolbar,
   MdDrawer,
-  MdSnackbar
+  MdSnackbar,
+  MdCard,
+  MdRipple
 } from "vue-material/dist/components";
 Vue.use(MdButton);
 Vue.use(MdIcon);
@@ -26,6 +28,8 @@ Vue.use(MdTable);
 Vue.use(MdToolbar);
 Vue.use(MdDrawer);
 Vue.use(MdSnackbar);
+Vue.use(MdCard);
+Vue.use(MdRipple);
 
 import router from "./router";
 import store from "./store";

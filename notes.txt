@@ -29,7 +29,7 @@ gérer le cachage des text area via les boutons
 faire les deux autres vues new profil et select profil
 mieux gérer les tableaux, intégrer notamment les couleurs de fond
 faire un simili roll
-faire des boutons ajouter pour: points, statistiques
+faire des boutons ajouter et supprimer pour: points, statistiques
 si possible au double clic sur un elem du tableau faire pop un input pour changer la valeur
 si possible essayer de gérer le cas où le nom d'un point counter est trop grand et le réduire pour qu'il reste sur une ligne
 intégrer les title tooltip vuetify

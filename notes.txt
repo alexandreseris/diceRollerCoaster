@@ -1,25 +1,42 @@
-à faire:
-faire un composant de message via des banières pour compléter les snackbar (voir si possible de changer la taille de ce truc aussi qui est un peu limité ou au moins de mettre des retours à la ligne??)
+lancement: 
+npm run serve
 
-trucs qui ont pas marché:
-v-on:input: accéder à l'event dans la fonction de callback
-changer la couleur de fond ou de police dans un md-input
+npm 6.14.*
 
-ajouter des types de stat sur la tableau de stat
-ajouter un compteur de point
-faire des boutons pour cacher les parties non voulues (nom perso, tableau de stat, points, chaque textarea)
-espacer verticalement les éléments
+create project:
+vue cli 4.5.6
+vue create dicerollercoaster
+? Please pick a preset: Manually select features
+? Check the features needed for your project: Choose Vue version, Babel, Router, Vuex, CSS Pre-processors
+? Choose a version of Vue.js that you want to start the project with 2.x
+? Use history mode for router? (Requires proper server setup for index fallback in production) Yes
+? Where do you prefer placing config for Babel, ESLint, etc.? In dedicated config files
+? Save this as a preset for future projects? No
 
 
-PENSE-BETE
-utilisation des boutons (et des thèmes au passage)
+dep:
+cd dicerollercoaster
+vue add vuetify (2.3.10)
+? Choose a preset: Prototype (rapid development)
+npm install axios
 
-clair sans fond
-<md-button class="md-theme-info md-primary">TEST</md-button>
-clair avec fond
-<md-button class="md-theme-info md-raised md-primary">TEST</md-button>
 
-foncé sans fond
-<md-button class="md-theme-info md-accent">TEST</md-button>
-foncé avec fond
-<md-button class="md-theme-info md-raised md-accent">TEST</md-button>
+TODO:
+centrer l'appli quand elle st en plein écran
+espacer les différents éléments entre eux (notamment en hauteur)
+validation des fields type number
+gérer le cachage des text area via les boutons
+faire les deux autres vues new profil et select profil
+mieux gérer les tableaux, intégrer notamment les couleurs de fond
+faire un simili roll
+faire des boutons ajouter pour: points, statistiques
+si possible au double clic sur un elem du tableau faire pop un input pour changer la valeur
+si possible essayer de gérer le cas où le nom d'un point counter est trop grand et le réduire pour qu'il reste sur une ligne
+intégrer les title tooltip vuetify
+revoir la taille du menu qui est pas complètement égal
+commencer à voir le stockage des données dans vuex, stacker les données quand il y a un changement et écrire une fonction de test pour envoi au srv
+    principe:
+        au changement d'une valeur d'un input, enregistrer dans un objet stocké dans vuex
+        puis faire apparaitre un bouton valider et annuler en haut à droite de l'écran
+        à la validation, on envoi toutes les modifications enregistrées
+        à l'annulation on vide complètement l'objet

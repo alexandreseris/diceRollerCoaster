@@ -1,57 +1,49 @@
 import Vue from "vue";
-// import des libraires
-import "vue-material/dist/vue-material.min.css";
-import "vue-material/dist/theme/default-dark.css"; // https://vuematerial.io/themes/prebuilt
-import {
-  MdButton,
-  MdIcon,
-  MdAutocomplete,
-  MdField,
-  MdList,
-  MdMenu,
-  MdContent,
-  MdTable,
-  MdToolbar,
-  MdDrawer,
-  MdSnackbar
-} from "vue-material/dist/components";
-Vue.use(MdButton);
-Vue.use(MdIcon);
-Vue.use(MdAutocomplete);
-Vue.use(MdField);
-Vue.use(MdList);
-Vue.use(MdMenu);
-Vue.use(MdContent);
-Vue.use(MdTable);
-Vue.use(MdToolbar);
-Vue.use(MdDrawer);
-Vue.use(MdSnackbar);
+
+import App from "./App.vue";
 
 import router from "./router";
 import store from "./store";
 
-import App from "./App.vue";
+import vuetify from "./plugins/vuetify";
+import "roboto-fontface/css/roboto/roboto-fontface.css";
+import "@mdi/font/css/materialdesignicons.css";
 
-// config
 Vue.config.productionTip = true;
-// https://vuematerial.io/configuration
-// Vue.material = {
-// https://vuematerial.io/configuration
-//   theming: {}
-// locale: {
-//     dateFormat: "dd/MM/yyyy",
-//     // `0` stand for Sunday, `1` stand for Monday
-//     firstDayOfAWeek: 1
-// }
-// };
 
-// création d'une vue globale qui permettra de gérer la communication entre composants via des évènements
-// utilisation: dabns le composant, dans le hook created: this.$eventBus.$on("nomevent", data)
-// où on émettre: this.$eventBus.$emit("openedProfil", this);
+// global vue which allows component communication using events
+// use: in hook "created" of a conponent: this.$eventBus.$on("eventName", data)
+// and anywhere, emit the custom event: this.$eventBus.$emit("eventName", this);
 Vue.prototype.$eventBus = new Vue();
+
+// utilitairies functions
+Vue.prototype.$utilsFunctions = {
+  intInput: function(val, range) {
+    val = Number(val);
+    if (isNaN(val)) {
+      return "Nombre entier attendu";
+    }
+    if (range !== null) {
+      if (typeof range[0] === "number" && val < range[0]) {
+        return "Valeur minimale: " + range[0].toString();
+      }
+      if (typeof range[1] === "number" && val > range[1]) {
+        return "Valeur maximale: " + range[1].toString();
+      }
+    }
+    return true;
+  },
+  requiredInput: function(val) {
+    if (val === "") {
+      return "Valeur obligatoire";
+    }
+    return true;
+  }
+};
 
 new Vue({
   router,
   store,
+  vuetify,
   render: h => h(App)
 }).$mount("#app");

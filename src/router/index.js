@@ -4,35 +4,34 @@ import Home from "../views/Home.vue";
 
 Vue.use(VueRouter);
 
-const routes = [{
+const routes = [
+  {
     path: "/",
     name: "Home",
     component: Home,
     label: "Page principale",
-    icon: "home"
-},
-{
-    path: "/newCharacter",
-    name: "newCharacter",
-    component: () => // lazy-loading trick
-        import( /* webpackChunkName: "NewCharacter" */ "../views/NewCharacter.vue"),
-    label: "Nouveau personnage",
-    icon: "add"
-},
-{
-    path: "/profilList",
-    name: "profilList",
-    component: () =>
-        import( /* webpackChunkName: "ProfilList" */ "../views/ProfilList.vue"),
-    label: "Profils",
-    icon: "format_list_numbered"
-}
+    icon: "mdi-home"
+  },
+  {
+    path: "/NewProfil",
+    name: "NewProfil",
+    component: () => import("../views/NewProfil.vue"),
+    label: "Nouveau profile",
+    icon: "mdi-plus"
+  },
+  {
+    path: "/SelectProfil",
+    name: "SelectProfil",
+    component: () => import("../views/SelectProfil.vue"),
+    label: "Selectionner un profile",
+    icon: "mdi-format-list-bulleted"
+  }
 ];
 
 const router = new VueRouter({
-    mode: "history",
-    base: process.env.BASE_URL,
-    routes
+  mode: "history",
+  base: process.env.BASE_URL,
+  routes
 });
 
 export default router;

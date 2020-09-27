@@ -1,17 +1,32 @@
 <template>
-  <div class="container">
-    <md-toolbar>
-      <div class="pointName">{{ this.namePoint }}</div>
-      <span class="pointValue">{{ this.currentPoint }}</span>
-      <span class="pointMax">{{ this.maxPoint }}</span>
-    </md-toolbar>
-  </div>
+  <v-card
+    :class="['centerElem', 'noSpace', 'pointCounterCardMain']"
+    :color="colorVal"
+    width="33%"
+    raised
+  >
+    <v-card-subtitle>{{ this.namePoint }}</v-card-subtitle>
+    <v-card-text :class="['flexRow']">
+      <v-text-field
+        :value="this.currentPoint"
+        placeholder="actuel"
+        :color="colorVal"
+      ></v-text-field>
+      <v-text-field
+        prefix="/"
+        :value="this.maxPoint"
+        placeholder="max"
+        :color="colorVal"
+      ></v-text-field>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
 export default {
   props: {
     namePoint: String,
+    colorVal: String,
     currentPoint: Number,
     maxPoint: Number
   }
@@ -19,14 +34,17 @@ export default {
 </script>
 
 <style scoped>
-.pointName::after {
-  content: ":";
+.noSpace {
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
 }
-.pointValue::before {
-  content: " ";
-  white-space: pre;
+
+.noSpace * {
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
 }
-.pointValue::after {
-  content: "/";
+
+.pointCounterCardMain {
+  max-width: 7em;
 }
 </style>

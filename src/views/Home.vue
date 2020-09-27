@@ -1,193 +1,156 @@
 <template>
-  <div id="mainVue" class="vueContainer">
-    <message-box message="tatamère"></message-box>
-    <md-field class="textcenter" md-inline>
-      <md-input v-model="characterName"></md-input>
-    </md-field>
-    <div class="rollContainer">
-      <div class="manualInputContainer">
-        <md-field class="defaultWidth">
-          <label>Saisie Manuelle</label>
-          <md-input
-            v-model="manualRollNumberDice"
-            type="number"
-            :min="manualRollNumberDiceIntervals[0]"
-            :max="manualRollNumberDiceIntervals[1]"
-            v-on:change="
-              checkInputIntervals($event, manualRollNumberDiceIntervals)
-            "
-          ></md-input>
-        </md-field>
-        <md-toolbar class="md-dense md-transparent defaultWidth" md-elevation="0">dés</md-toolbar>
-        <md-field class="defaultWidth">
-          <md-input
-            v-model="manualRollValue"
-            type="number"
-            :min="manualRollValueIntervals[0]"
-            :max="manualRollValueIntervals[1]"
-            v-on:change="checkInputIntervals($event, manualRollValueIntervals)"
-          ></md-input>
-        </md-field>
-      </div>
-      <div class="rollButtonContainer">
-        <md-button v-on:click="roll" class="customIconButton md-theme-info md-primary" id="rollButton">
-          <md-icon :md-src="require('@/assets/rolling-dices.svg')" class="customIcon"></md-icon>
-        </md-button>
-        <md-toolbar class="md-accent md-title textcenter">{{ this.rollRes }}</md-toolbar>
+  <div :class="['vueContainerInner', 'flexCol', 'flexSpaceArround']">
+    <div>
+      <v-text-field
+        color="accent"
+        class="centerElem"
+        placeholder="Nom du personnage"
+        prepend-inner-icon="mdi-account"
+      ></v-text-field>
+    </div>
+
+    <div>
+      <div id="rollContainer" :class="['flexRow', 'flexWrap']">
+        <div id="manualRollContainer" :class="['flexRow', 'flexWrap']">
+          <v-text-field
+            id="dicNumber"
+            color="secondary"
+            prepend-inner-icon="mdi-dice-6"
+            placeholder="Nombre de dés"
+          ></v-text-field>
+          <v-text-field
+            id="diceFaces"
+            color="secondary"
+            prepend-inner-icon="mdi-dice-6"
+            placeholder="Nombre de face"
+          ></v-text-field>
+        </div>
+        <div id="rollActionContainer" class="centerElem">
+          <v-card :class="['d-flex']">
+            <v-card-actions>
+              <v-btn id="rollButton" fab small color="accent">
+                <v-icon dark>
+                  mdi-dice-multiple
+                </v-icon>
+              </v-btn></v-card-actions
+            >
+            <v-card-text>text</v-card-text>
+          </v-card>
+        </div>
       </div>
     </div>
-    <div class="statContainer">
-      <div class="statValueTable">
-        <md-table>
-          <md-table-row v-for="stat in statList" v-bind:key="stat.name">
-            <md-table-cell>{{ stat.name }}</md-table-cell>
-            <md-table-cell>{{ stat.value }}</md-table-cell>
-          </md-table-row>
-        </md-table>
-      </div>
-      <div class="statIntervalTable">
-        <md-table>
-          <md-table-row v-for="int in statIntervals" v-bind:key="int">
-            <md-table-cell>{{ int }}</md-table-cell>
-            <md-table-cell>0</md-table-cell>
-          </md-table-row>
-        </md-table>
-      </div>
+
+    <div id="statContainer">
+      <v-card>
+        <v-card-title>Statistiques</v-card-title>
+        <div
+          id="globalStatTableContainer"
+          :class="['flexRow', 'flexWrap', 'flexSpaceArround']"
+        >
+          <div id="statTableContainer">
+            <v-simple-table dense>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Calories</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>test</td>
+                  <td>toast</td>
+                </tr>
+                <tr>
+                  <td>test</td>
+                  <td>toast</td>
+                </tr>
+              </tbody>
+            </v-simple-table>
+          </div>
+          <div id="intervalStatTableContainer">
+            <v-simple-table dense>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Calories</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>test</td>
+                  <td>toast</td>
+                </tr>
+                <tr>
+                  <td>test</td>
+                  <td>toast</td>
+                </tr>
+              </tbody>
+            </v-simple-table>
+          </div>
+        </div>
+      </v-card>
     </div>
-    <div class="pointContainer">
-      <point-counter
-        class="textcenter"
-        v-for="pointElem in pointLs"
-        v-bind:key="pointElem.name"
-        v-bind:name-point="pointElem.name"
-        v-bind:current-point="pointElem.current"
-        v-bind:max-point="pointElem.max"
-      />
+
+    <div id="pointContainer">
+      <v-card>
+        <v-card-title>Points</v-card-title>
+        <div id="pointCardContainer" :class="['flexRow', 'flexWrap']">
+          <point-counter
+            :name-point="'PV'"
+            :current-point="100"
+            :max-point="200"
+            :colorVal="'error'"
+          ></point-counter>
+          <point-counter
+            :name-point="'MANAMANA'"
+            :current-point="100"
+            :max-point="200"
+            :colorVal="'info'"
+          ></point-counter>
+          <point-counter
+            :name-point="'BLABLA'"
+            :current-point="100"
+            :max-point="200"
+            :colorVal="'warning'"
+          ></point-counter>
+          <point-counter
+            :name-point="'BLABLA'"
+            :current-point="100"
+            :max-point="200"
+            :colorVal="'warning'"
+          ></point-counter>
+          <point-counter
+            :name-point="'BLABLA'"
+            :current-point="100"
+            :max-point="200"
+            :colorVal="'warning'"
+          ></point-counter>
+          <point-counter
+            :name-point="'BLABLASFDVfffffSFVSVs'"
+            :current-point="100"
+            :max-point="200"
+            :colorVal="'warning'"
+          ></point-counter>
+        </div>
+      </v-card>
     </div>
-    <text-input v-for="textBox in textBoxes" v-bind:key="textBox" v-bind:name-box="textBox" />
+
+    <div id="textareaContainer">
+      <text-area title-val="bonjour" content-val=""></text-area>
+      <text-area title-val="blabla" content-val="COUILLE"></text-area>
+    </div>
   </div>
 </template>
 
 <script>
-import PointCounter from "@/components/PointCounter.vue";
-import TextInput from "@/components/TextInput.vue";
-import MessageBox from "@/components/MessageBox.vue";
+import PointCounter from "@/components/PointCounter";
+import TextArea from "@/components/TextArea";
 
 export default {
   name: "Home",
-  components: {
-    PointCounter,
-    TextInput,
-    MessageBox
-  },
+  components: { PointCounter, TextArea },
   data: function() {
-    return {
-      pointLs: [
-        { name: "Santé", current: 123, max: 300 },
-        { name: "Mana", current: 2, max: 10000 }
-      ],
-      textBoxes: ["Notes", "Equipement", "Description"],
-      statList: [
-        { name: "for", value: 10 },
-        { name: "int", value: 20 },
-        { name: "char", value: 30 }
-      ],
-      statIntervals: [
-        "Echec critique",
-        "Echec",
-        "Réussite",
-        "Réussite critique"
-      ],
-      rollRes: 100,
-      characterName: "JEAN MIMI",
-      manualRollNumberDice: 0,
-      manualRollValue: 0,
-      manualRollNumberDiceIntervals: [1, 100],
-      manualRollValueIntervals: [2, 1000]
-    };
-  },
-  methods: {
-    checkInputIntervals: function(event, interval) {
-      console.log("EVENEMENT");
-      console.log(event);
-      let invalidInput = false;
-      if (isNaN(event.target.value)) {
-        invalidInput = true;
-      } else {
-        let inpVal = parseInt(event.target.value, 10);
-        if (inpVal < interval[0] || inpVal > interval[1]) {
-          invalidInput = true;
-        }
-      }
-      if (invalidInput) {
-        event.target.classList.add("invalidForm");
-      } else {
-        event.target.classList.remove("invalidForm");
-      }
-    },
-    roll: function() {
-      this.rollRes = String(Math.round(Math.random() * 100));
-    }
+    return {};
   }
 };
 </script>
-
-<style scoped>
-#mainVue {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  /* align-items: flex-start; */
-}
-
-div.rollContainer,
-.rollButtonContainer,
-.manualInputContainer,
-.statContainer,
-.pointContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-div.rollContainer,
-.rollButtonContainer,
-.manualInputContainer {
-  justify-content: space-between;
-}
-
-.statContainer {
-  justify-content: space-around;
-}
-
-.pointContainer {
-  justify-content: center;
-}
-
-div.rollContainer,
-.statContainer,
-.pointContainer,
-.manualInputContainer {
-  flex-wrap: wrap;
-}
-
-.rollButtonContainer:nth-child(2) {
-  flex: 2;
-}
-
-.defaultWidth {
-  width: initial;
-}
-
-.customIconButton {
-  height: 85%;
-}
-.customIcon {
-  width: initial;
-  min-width: initial;
-  height: initial;
-  min-height: initial;
-  font-size: initial !important;
-}
-
-</style>

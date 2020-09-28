@@ -40,7 +40,7 @@ export default {
   width: 100%;
 }
 .vueContainerInner {
-  padding: 2vh 2vh 2vw 2vw;
+  padding: 10vh 10vw;
 }
 
 .centerElem {
@@ -72,5 +72,9 @@ export default {
 
 .flexSpaceBetween {
   justify-content: space-between;
+}
+
+.noTextSelection {
+  user-select: none;
 }
 </style>

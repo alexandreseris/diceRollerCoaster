@@ -1,9 +1,15 @@
 <template>
   <v-card>
     <v-card-actions>
-      <v-btn outlined rounded text>{{ this.titleVal }}</v-btn>
+      <v-btn rounded text @click="showBox">{{ this.titleVal }}</v-btn>
     </v-card-actions>
-    <v-textarea dense outlined :value="contentVal"></v-textarea>
+    <v-textarea
+      dense
+      outlined
+      :value="contentVal"
+      v-if="show"
+      v-model="content"
+    ></v-textarea>
   </v-card>
 </template>
 
@@ -12,6 +18,17 @@ export default {
   props: {
     titleVal: String,
     contentVal: String
+  },
+  data: function() {
+    return {
+      show: true,
+      content: this.contentVal
+    };
+  },
+  methods: {
+    showBox: function() {
+      this.show = !this.show;
+    }
   }
 };
 </script>

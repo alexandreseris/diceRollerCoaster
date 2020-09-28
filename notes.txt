@@ -22,21 +22,23 @@ npm install axios
 
 
 TODO:
-centrer l'appli quand elle st en plein écran
-espacer les différents éléments entre eux (notamment en hauteur)
-validation des fields type number
-gérer le cachage des text area via les boutons
-faire les deux autres vues new profil et select profil
-mieux gérer les tableaux, intégrer notamment les couleurs de fond
-faire un simili roll
-faire des boutons ajouter et supprimer pour: points, statistiques
-si possible au double clic sur un elem du tableau faire pop un input pour changer la valeur
-si possible essayer de gérer le cas où le nom d'un point counter est trop grand et le réduire pour qu'il reste sur une ligne
-intégrer les title tooltip vuetify
-revoir la taille du menu qui est pas complètement égal
-commencer à voir le stockage des données dans vuex, stacker les données quand il y a un changement et écrire une fonction de test pour envoi au srv
-    principe:
-        au changement d'une valeur d'un input, enregistrer dans un objet stocké dans vuex
-        puis faire apparaitre un bouton valider et annuler en haut à droite de l'écran
-        à la validation, on envoi toutes les modifications enregistrées
-        à l'annulation on vide complètement l'objet
+    logique:
+        faire des boutons ajouter et supprimer pour: points, statistiques
+            ajouter un menu contextuel au clic droit pour: set les props (couleur), supprimer: https://vuetifyjs.com/en/components/menus/
+            faire la remonté d'info du composant vers le data du parent et garder bien tout à jour
+            à l'ajout d'élement, vérifier si la clef n'existe pas déjà
+        validation des fields type number
+        faire les deux autres vues new profil et select profil
+        si possible au double clic sur un elem du tableau faire pop un input pour changer la valeur
+        commencer à voir le stockage des données dans vuex, stacker les données quand il y a un changement et écrire une fonction de test pour envoi au srv
+            principe:
+                au changement d'une valeur d'un input, enregistrer dans un objet stocké dans vuex
+                puis faire apparaitre un bouton valider et annuler en haut à droite de l'écran
+                à la validation, on envoi toutes les modifications enregistrées
+                à l'annulation on vide complètement l'objet
+        au changement de page, prompt pour sauvegarder les modifications
+        faire un stockage séparé qui contiendra la page affichée à la fermeture de la session et l'affichage ou le cachages des éléments
+    esthétique:
+        espacer les différents éléments entre eux (notamment en hauteur)
+        intégrer les title tooltip vuetify
+        revoir la taille du menu qui est pas complètement égal

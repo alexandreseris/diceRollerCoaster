@@ -25,6 +25,13 @@ const routes = [
     component: () => import("../views/SelectProfil.vue"),
     label: "Selectionner un profile",
     icon: "mdi-format-list-bulleted"
+  },
+  {
+    path: "/Settings",
+    name: "Settings",
+    component: () => import("../views/Settings.vue"),
+    label: "Paramètres",
+    icon: "mdi-cogs"
   }
 ];
 

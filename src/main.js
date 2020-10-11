@@ -38,6 +38,16 @@ Vue.prototype.$utilsFunctions = {
       return "Valeur obligatoire";
     }
     return true;
+  },
+  getNameList: function(arr) {
+    return arr.map(function(item) {
+      return item.name;
+    });
+  },
+  getItemByName: function(arr, search) {
+    return arr.filter(function(item) {
+      return item.name === search;
+    })[0];
   }
 };
 

@@ -23,11 +23,14 @@ npm install axios
 
 TODO:
     logique:
+        trouver un meilleur système pour stocker les fonctions transverses (mettre dans des fichiers séparés pour faire des modules)
+        pour l'ajout la modif et la suppr d'element cf https://vuetifyjs.com/en/components/data-tables/#edit-dialog et https://vuetifyjs.com/en/components/data-tables/#simple-checkbox
+        voir pour le two way binding avec .sync sur v-model
         faire des boutons ajouter et supprimer pour: points, statistiques
             ajouter un menu contextuel au clic droit pour: set les props (couleur), supprimer: https://vuetifyjs.com/en/components/menus/
             faire la remonté d'info du composant vers le data du parent et garder bien tout à jour
             à l'ajout d'élement, vérifier si la clef n'existe pas déjà
-        validation des fields type number
+        validation des fields type number, intégrer les min et max
         faire les deux autres vues new profil et select profil
         si possible au double clic sur un elem du tableau faire pop un input pour changer la valeur
         commencer à voir le stockage des données dans vuex, stacker les données quand il y a un changement et écrire une fonction de test pour envoi au srv

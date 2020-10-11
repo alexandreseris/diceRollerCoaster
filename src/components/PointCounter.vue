@@ -13,6 +13,7 @@
         outlined
         dense
         single-line
+        readonly
         hide-details="auto"
       ></v-text-field>
       <v-card-text :class="['flexRow']">
@@ -27,6 +28,7 @@
           :value="this.maxPoint"
           v-model="maxPoint"
           placeholder="max"
+          :readonly="!this.isEditable"
           hide-details="auto"
         ></v-text-field>
       </v-card-text>
@@ -40,7 +42,8 @@ export default {
     namePoint: String,
     colorVal: String,
     currentPointVal: Number,
-    maxPointVal: Number
+    maxPointVal: Number,
+    isEditable: { type: Boolean, default: false }
   },
   data: function() {
     return {

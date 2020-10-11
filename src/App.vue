@@ -77,4 +77,12 @@ export default {
 .noTextSelection {
   user-select: none;
 }
+
+.noPadding {
+  padding: 0px;
+}
+
+.noMargin {
+  margin: 0px;
+}
 </style>

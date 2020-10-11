@@ -47,7 +47,16 @@
 
     <div id="statContainer">
       <v-card>
-        <v-card-title>Statistiques</v-card-title>
+        <v-card-title
+          >Statistiques
+          <add-new-item
+            @new-item="newStat"
+            :valueList="
+              this.$root.$utilsFunctions.getNameList(this.statsAvailable)
+            "
+            :excludeList="this.$root.$utilsFunctions.getNameList(this.statList)"
+          ></add-new-item>
+        </v-card-title>
         <div
           id="globalStatTableContainer"
           :class="['flexRow', 'flexWrap', 'flexSpaceArround']"
@@ -55,7 +64,7 @@
           <div id="statTableContainer">
             <v-simple-table dense>
               <tbody>
-                <tr v-for="stat in this.statTable" :key="stat.name">
+                <tr v-for="stat in this.statList" :key="stat.name">
                   <td>{{ stat.name }}</td>
                   <td>{{ stat.value }}</td>
                 </tr>
@@ -84,12 +93,18 @@
       <v-card>
         <v-card-title
           >Points
-          <v-btn icon id="newPointCard" @click="newPointCard">
-            <v-icon>
-              mdi-plus-circle-outline
-            </v-icon>
-          </v-btn></v-card-title
-        >
+          <add-new-item
+            @new-item="newPointCard"
+            :valueList="
+              this.$root.$utilsFunctions.getNameList(
+                this.pointsCounterAvailable
+              )
+            "
+            :excludeList="
+              this.$root.$utilsFunctions.getNameList(this.pointCounterList)
+            "
+          ></add-new-item>
+        </v-card-title>
         <div id="pointCardContainer" :class="['flexRow', 'flexWrap']">
           <point-counter
             v-for="pointCounter in this.pointCounterList"
@@ -98,17 +113,32 @@
             :current-point-val="pointCounter.current"
             :max-point-val="pointCounter.max"
             :colorVal="pointCounter.color"
+            :isEditable="pointCounter.isEditable"
           ></point-counter>
         </div>
       </v-card>
     </div>
     <div id="textareaContainer">
-      <text-area
-        v-for="textarea in textAreaList"
-        :key="textarea.name"
-        :title-val="textarea.name"
-        :content-val="textarea.value"
-      ></text-area>
+      <v-card>
+        <v-card-title
+          >Saisie de texte
+          <add-new-item
+            @new-item="newTextArea"
+            :valueList="
+              this.$root.$utilsFunctions.getNameList(this.textAreaAvailable)
+            "
+            :excludeList="
+              this.$root.$utilsFunctions.getNameList(this.textAreaList)
+            "
+          ></add-new-item>
+        </v-card-title>
+        <text-area
+          v-for="textarea in textAreaList"
+          :key="textarea.name"
+          :title-val="textarea.name"
+          :content-val="textarea.value"
+        ></text-area>
+      </v-card>
     </div>
   </div>
 </template>
@@ -116,17 +146,98 @@
 <script>
 import PointCounter from "@/components/PointCounter";
 import TextArea from "@/components/TextArea";
+import AddNewItem from "@/components/AddNewItem";
 
 export default {
   name: "Home",
-  components: { PointCounter, TextArea },
+  components: { PointCounter, TextArea, AddNewItem },
   data: function() {
     return {
       characterName: "Jean branlepaune",
       manualRollDiceNumber: 1,
       manualRollDiceFaces: 100,
       rollRes: { value: 0, label: "C'EST PAS BON JEAN MICHEL" },
-      statTable: [
+      statsAvailable: [
+        { name: "Force", min: 0, max: 0, value: 100 },
+        { name: "Intelligence", min: 0, max: 0, value: 100 },
+        { name: "Charisme", min: 0, max: 0, value: 100 },
+        { name: "Perception", min: 0, max: 0, value: 100 },
+        { name: "Dextérité", min: 0, max: 0, value: 100 },
+        { name: "amour", min: 0, max: 0, value: 100 },
+        { name: "test1", min: 0, max: 0, value: 100 },
+        { name: "toast", min: 0, max: 0, value: 100 }
+      ],
+      pointsCounterAvailable: [
+        {
+          name: "PV",
+          current: 0,
+          max: 200,
+          color: "primary",
+          isEditable: true
+        },
+        {
+          name: "Manamana",
+          current: 0,
+          max: 200,
+          color: "secondary",
+          isEditable: true
+        },
+        {
+          name: "Moneymoney",
+          current: 0,
+          max: 200,
+          color: "accent",
+          isEditable: false
+        },
+        {
+          name: "Folie",
+          current: 0,
+          max: 200,
+          color: "error",
+          isEditable: true
+        },
+        {
+          name: "Faim",
+          current: 0,
+          max: 200,
+          color: "warning",
+          isEditable: false
+        },
+        {
+          name: "Fatigue",
+          current: 0,
+          max: 200,
+          color: "info",
+          isEditable: true
+        },
+        {
+          name: "saipa",
+          current: 0,
+          max: 200,
+          color: "success",
+          isEditable: true
+        },
+        {
+          name: "COUCOU",
+          current: 0,
+          max: 200,
+          color: "success",
+          isEditable: true
+        },
+        {
+          name: "wazaaa",
+          current: 0,
+          max: 200,
+          color: "success",
+          isEditable: true
+        }
+      ],
+      textAreaAvailable: [
+        { name: "Description", value: "" },
+        { name: "Equipement", value: "" },
+        { name: "testTextArea", value: "COUCOU" }
+      ],
+      statList: [
         { name: "Force", value: 100 },
         { name: "Intelligence", value: 50 },
         { name: "Charisme", value: 10 },
@@ -165,13 +276,55 @@ export default {
         }
       ],
       pointCounterList: [
-        { name: "PV", current: 100, max: 200, color: "primary" },
-        { name: "Manamana", current: 100, max: 200, color: "secondary" },
-        { name: "Moneymoney", current: 100, max: 200, color: "accent" },
-        { name: "Folie", current: 100, max: 200, color: "error" },
-        { name: "Faim", current: 100, max: 200, color: "warning" },
-        { name: "Fatigue", current: 100, max: 200, color: "info" },
-        { name: "saipa", current: 100, max: 200, color: "success" }
+        {
+          name: "PV",
+          current: 100,
+          max: 200,
+          color: "primary",
+          isEditable: false
+        },
+        {
+          name: "Manamana",
+          current: 100,
+          max: 200,
+          color: "secondary",
+          isEditable: true
+        },
+        {
+          name: "Moneymoney",
+          current: 100,
+          max: 200,
+          color: "accent",
+          isEditable: true
+        },
+        {
+          name: "Folie",
+          current: 100,
+          max: 200,
+          color: "error",
+          isEditable: true
+        },
+        {
+          name: "Faim",
+          current: 100,
+          max: 200,
+          color: "warning",
+          isEditable: true
+        },
+        {
+          name: "Fatigue",
+          current: 100,
+          max: 200,
+          color: "info",
+          isEditable: true
+        },
+        {
+          name: "saipa",
+          current: 100,
+          max: 200,
+          color: "success",
+          isEditable: false
+        }
       ],
       textAreaList: [
         { name: "Description", value: "paysan de 3ieme classe" },
@@ -180,8 +333,26 @@ export default {
     };
   },
   methods: {
-    newPointCard: function() {
-      this.pointCounterList.push({ name: "", current: 0, max: 0, color: "" });
+    newPointCard: function(eventProp) {
+      const pointCounterModel = this.$root.$utilsFunctions.getItemByName(
+        this.pointsCounterAvailable,
+        eventProp.name
+      );
+      this.pointCounterList.push(pointCounterModel);
+    },
+    newStat: function(eventProp) {
+      const statModel = this.$root.$utilsFunctions.getItemByName(
+        this.statsAvailable,
+        eventProp.name
+      );
+      this.statList.push(statModel);
+    },
+    newTextArea: function(eventProp) {
+      const textAreaModel = this.$root.$utilsFunctions.getItemByName(
+        this.textAreaAvailable,
+        eventProp.name
+      );
+      this.textAreaList.push(textAreaModel);
     },
     roll: function() {
       this.rollRes.value = Math.round(Math.random() * 100);

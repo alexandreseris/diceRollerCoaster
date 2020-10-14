@@ -24,8 +24,20 @@ npm install axios
 TODO:
     logique:
         trouver un meilleur système pour stocker les fonctions transverses (mettre dans des fichiers séparés pour faire des modules)
+        /!\ LA GESTION DU TWO WAY BINDING EST UNE PLAIE, voir si moyen de faire mieux => écrire une fonction ou un composant wrapper qui gèrerait tout, ex:
+            coté parent:
+                @update-item
+                @insert-item
+                @delete-item
+                derrière une fonction générique serait appelé pour mettre à jour la liste de composant
+                comment faire pour cibler la liste à mettre à jour sans dupliquer les données => passer la liste de component en param de la fonction qui fait la maj.?.?.?.?.
+            coté enfant:
+                l'enfant émetterait un event de type: this.$emit(crudOperation, componentName, componentId, {field1: value1, field2: value2})
+                comment rattacher le bouton pour insert au composant enfant directement???
+
         pour l'ajout la modif et la suppr d'element cf https://vuetifyjs.com/en/components/data-tables/#edit-dialog et https://vuetifyjs.com/en/components/data-tables/#simple-checkbox
         voir pour le two way binding avec .sync sur v-model
+        voir si possible de déplacer les éléments (et d'update les listes en conséquences)
         faire des boutons ajouter et supprimer pour: points, statistiques
             ajouter un menu contextuel au clic droit pour: set les props (couleur), supprimer: https://vuetifyjs.com/en/components/menus/
             faire la remonté d'info du composant vers le data du parent et garder bien tout à jour
@@ -42,6 +54,8 @@ TODO:
         au changement de page, prompt pour sauvegarder les modifications
         faire un stockage séparé qui contiendra la page affichée à la fermeture de la session et l'affichage ou le cachages des éléments
     esthétique:
+        faire les boutons pour cacher les éléments sur chaque partie
+        revoir pour passer tout le display flex en vue directement pour plus de cohérence
         espacer les différents éléments entre eux (notamment en hauteur)
         intégrer les title tooltip vuetify
         revoir la taille du menu qui est pas complètement égal

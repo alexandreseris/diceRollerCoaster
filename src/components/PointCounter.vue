@@ -1,38 +1,56 @@
 <template>
   <v-card
     :class="['centerElem', 'reworkedSpacing', 'pointCounterCardMain']"
-    :color="colorVal"
+    :color="this.colorVal"
     width="33%"
-    raised
   >
-    <v-card-subtitle>
-      <v-text-field
-        :value="this.name"
-        v-model="name"
-        placeholder="nom"
-        outlined
-        dense
-        single-line
-        readonly
-        hide-details="auto"
-      ></v-text-field>
-      <v-card-text :class="['flexRow']">
+    <v-row no-gutters>
+      <v-col cols="8">
+        <v-card-subtitle
+          :style="{ color: this.textColor }"
+          :class="['pointCounterName']"
+        >
+          {{ this.name }}
+        </v-card-subtitle>
+      </v-col>
+      <v-col>
+        <v-btn icon small class="float-right" @click="deleteElem(name)">
+          <v-icon>
+            mdi-close
+          </v-icon>
+        </v-btn>
+      </v-col>
+    </v-row>
+    <v-row no-gutters>
+      <v-col>
         <v-text-field
           :value="this.currentPoint"
           v-model="currentPoint"
           placeholder="actuel"
           hide-details="auto"
+          @change="
+            updateField({
+              name: name,
+              fieldname: 'currentPoint',
+              value: Number(currentPoint)
+            })
+          "
         ></v-text-field>
+      </v-col>
+      <v-col>
         <v-text-field
           prefix="/"
           :value="this.maxPoint"
           v-model="maxPoint"
           placeholder="max"
-          :readonly="!this.isEditable"
+          :disabled="!this.isEditable"
           hide-details="auto"
+          @change="
+            updateField({ name: name, fieldname: 'maxPoint', value: Number(maxPoint) })
+          "
         ></v-text-field>
-      </v-card-text>
-    </v-card-subtitle>
+      </v-col>
+    </v-row>
   </v-card>
 </template>
 
@@ -50,8 +68,17 @@ export default {
       name: this.namePoint,
       color: this.colorVal,
       currentPoint: this.currentPointVal,
-      maxPoint: this.maxPointVal
+      maxPoint: this.maxPointVal,
+      textColor: this.$vuetify.theme.isDark ? "#FFFFFF" : "#000000"
     };
+  },
+  methods: {
+    deleteElem: function(item) {
+      this.$emit("delete-item", { name: item });
+    },
+    updateField: function(fieldDescription) {
+      this.$emit("update-item", fieldDescription);
+    }
   }
 };
 </script>
@@ -69,5 +96,11 @@ export default {
 
 .pointCounterCardMain {
   max-width: 7em;
+}
+
+.pointCounterName {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 </style>

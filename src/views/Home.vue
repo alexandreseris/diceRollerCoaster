@@ -108,10 +108,12 @@
         <div id="pointCardContainer" :class="['flexRow', 'flexWrap']">
           <point-counter
             v-for="pointCounter in this.pointCounterList"
+            @delete-item="deletePointCard(pointCounter)"
+            @update-item="updatePointCard"
             :key="pointCounter.name"
             :name-point="pointCounter.name"
-            :current-point-val="pointCounter.current"
-            :max-point-val="pointCounter.max"
+            :current-point-val="pointCounter.currentPoint"
+            :max-point-val="pointCounter.maxPoint"
             :colorVal="pointCounter.color"
             :isEditable="pointCounter.isEditable"
           ></point-counter>
@@ -170,64 +172,64 @@ export default {
       pointsCounterAvailable: [
         {
           name: "PV",
-          current: 0,
-          max: 200,
+          currentPoint: 0,
+          maxPoint: 200,
           color: "primary",
           isEditable: true
         },
         {
           name: "Manamana",
-          current: 0,
-          max: 200,
+          currentPoint: 0,
+          maxPoint: 200,
           color: "secondary",
           isEditable: true
         },
         {
           name: "Moneymoney",
-          current: 0,
-          max: 200,
+          currentPoint: 0,
+          maxPoint: 200,
           color: "accent",
           isEditable: false
         },
         {
           name: "Folie",
-          current: 0,
-          max: 200,
+          currentPoint: 0,
+          maxPoint: 200,
           color: "error",
           isEditable: true
         },
         {
           name: "Faim",
-          current: 0,
-          max: 200,
+          currentPoint: 0,
+          maxPoint: 200,
           color: "warning",
           isEditable: false
         },
         {
           name: "Fatigue",
-          current: 0,
-          max: 200,
+          currentPoint: 0,
+          maxPoint: 200,
           color: "info",
           isEditable: true
         },
         {
           name: "saipa",
-          current: 0,
-          max: 200,
+          currentPoint: 0,
+          maxPoint: 200,
           color: "success",
           isEditable: true
         },
         {
           name: "COUCOU",
-          current: 0,
-          max: 200,
+          currentPoint: 0,
+          maxPoint: 200,
           color: "success",
           isEditable: true
         },
         {
           name: "wazaaa",
-          current: 0,
-          max: 200,
+          currentPoint: 0,
+          maxPoint: 200,
           color: "success",
           isEditable: true
         }
@@ -278,50 +280,50 @@ export default {
       pointCounterList: [
         {
           name: "PV",
-          current: 100,
-          max: 200,
+          currentPoint: 100,
+          maxPoint: 200,
           color: "primary",
           isEditable: false
         },
         {
           name: "Manamana",
-          current: 100,
-          max: 200,
+          currentPoint: 100,
+          maxPoint: 200,
           color: "secondary",
           isEditable: true
         },
         {
           name: "Moneymoney",
-          current: 100,
-          max: 200,
+          currentPoint: 100,
+          maxPoint: 200,
           color: "accent",
           isEditable: true
         },
         {
           name: "Folie",
-          current: 100,
-          max: 200,
+          currentPoint: 100,
+          maxPoint: 200,
           color: "error",
           isEditable: true
         },
         {
           name: "Faim",
-          current: 100,
-          max: 200,
+          currentPoint: 100,
+          maxPoint: 200,
           color: "warning",
           isEditable: true
         },
         {
           name: "Fatigue",
-          current: 100,
-          max: 200,
+          currentPoint: 100,
+          maxPoint: 200,
           color: "info",
           isEditable: true
         },
         {
           name: "saipa",
-          current: 100,
-          max: 200,
+          currentPoint: 100,
+          maxPoint: 200,
           color: "success",
           isEditable: false
         }
@@ -333,6 +335,9 @@ export default {
     };
   },
   methods: {
+    logger: function(obj) {
+      console.log(obj);
+    },
     newPointCard: function(eventProp) {
       const pointCounterModel = this.$root.$utilsFunctions.getItemByName(
         this.pointsCounterAvailable,
@@ -353,6 +358,19 @@ export default {
         eventProp.name
       );
       this.textAreaList.push(textAreaModel);
+    },
+    deletePointCard: function(pointCardElem) {
+      this.pointCounterList.splice(
+        this.pointCounterList.indexOf(pointCardElem),
+        1
+      );
+    },
+    updatePointCard: function(event) {
+      const obj = this.$root.$utilsFunctions.getItemByName(
+        this.pointCounterList,
+        event.name
+      );
+      obj[event.fieldname] = event.value;
     },
     roll: function() {
       this.rollRes.value = Math.round(Math.random() * 100);

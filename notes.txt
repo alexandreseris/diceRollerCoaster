@@ -23,6 +23,12 @@ npm install axios
 
 TODO:
     logique:
+        faire un composant input regroupant la validation vee validate et l'affichage des erreurs avec v-tooltip
+            comment la remontée des données parents enfant va se gérer?
+            règles de validation (à enregistrer qq part en global?)
+            placeholder
+            compact
+            type
         trouver un meilleur système pour stocker les fonctions transverses (mettre dans des fichiers séparés pour faire des modules)
         /!\ LA GESTION DU TWO WAY BINDING EST UNE PLAIE, voir si moyen de faire mieux => écrire une fonction ou un composant wrapper qui gèrerait tout, ex:
             coté parent:

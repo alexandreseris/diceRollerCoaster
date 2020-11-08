@@ -9,6 +9,7 @@
         <v-card-subtitle
           :style="{ color: this.textColor }"
           :class="['pointCounterName']"
+          :title="this.name"
         >
           {{ this.name }}
         </v-card-subtitle>
@@ -23,61 +24,102 @@
     </v-row>
     <v-row no-gutters>
       <v-col>
-        <v-text-field
-          :value="this.currentPoint"
-          v-model="currentPoint"
-          placeholder="actuel"
-          hide-details="auto"
-          @change="
-            updateField({
-              name: name,
-              fieldname: 'currentPoint',
-              value: Number(currentPoint)
-            })
+        <validation-provider
+          :rules="
+            'required|int|range:' +
+              currentPointMin.toString() +
+              ',' +
+              currentPointMax.toString()
           "
-        ></v-text-field>
+        >
+          <template v-slot="{ errors, valid, invalid }">
+            <v-text-field
+              ref="currentpointinput"
+              :error="invalid"
+              v-model="currentPointValue"
+              placeholder="actuel"
+              hide-details="auto"
+              @change="
+                if (valid) {
+                  $emit('update:currentPointValue', Number(currentPointValue));
+                }
+              "
+            ></v-text-field>
+            <v-tooltip
+              bottom
+              color="error"
+              open-on-hover
+              :activator="$refs.currentpointinput"
+            >
+              <!-- use of activator is mandatory cause validation-provider expect the first children to be an input and v-tooltip withouth activator prop need to wrap the activator (the input here) -->
+              <!-- :disabled="errors.length === 0" does not update, should use a computed prop instead? -->
+              <template v-slot:default>
+                <span>{{ errors[0] }}</span>
+              </template>
+            </v-tooltip>
+          </template>
+        </validation-provider>
       </v-col>
       <v-col>
         <v-text-field
+          :disabled="!isEditable"
           prefix="/"
-          :value="this.maxPoint"
-          v-model="maxPoint"
+          v-model="maxPointValue"
           placeholder="max"
-          :disabled="!this.isEditable"
           hide-details="auto"
           @change="
-            updateField({ name: name, fieldname: 'maxPoint', value: Number(maxPoint) })
+            if (valid) {
+              $emit('update:maxPointValue', Number(maxPointValue));
+            }
           "
-        ></v-text-field>
+        >
+        </v-text-field>
       </v-col>
     </v-row>
   </v-card>
 </template>
 
 <script>
+import { ValidationProvider, extend } from "vee-validate";
+import { required, integer, between } from "vee-validate/dist/rules";
+
+extend("required", {
+  ...required,
+  message: "champs obligatoire"
+});
+
+extend("int", {
+  ...integer,
+  message: "nombre entier attendu"
+});
+
+extend("range", {
+  ...between,
+  message: "le champs doit etre compris entre {min} et {max}"
+});
+
 export default {
+  components: { ValidationProvider },
   props: {
-    namePoint: String,
+    name: String,
     colorVal: String,
-    currentPointVal: Number,
-    maxPointVal: Number,
+    currentPointValue: Number,
+    currentPointMin: Number,
+    currentPointMax: Number,
+    maxPointValue: Number,
+    maxPointMin: Number,
+    maxPointMax: Number,
     isEditable: { type: Boolean, default: false }
   },
   data: function() {
     return {
-      name: this.namePoint,
-      color: this.colorVal,
-      currentPoint: this.currentPointVal,
-      maxPoint: this.maxPointVal,
-      textColor: this.$vuetify.theme.isDark ? "#FFFFFF" : "#000000"
+      textColor: this.$vuetify.theme.isDark ? "#FFFFFF" : "#000000",
+      errorShow: false
     };
   },
   methods: {
     deleteElem: function(item) {
       this.$emit("delete-item", { name: item });
-    },
-    updateField: function(fieldDescription) {
-      this.$emit("update-item", fieldDescription);
     }
   }
 };

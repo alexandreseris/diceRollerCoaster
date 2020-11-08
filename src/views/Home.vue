@@ -50,11 +50,21 @@
         <v-card-title
           >Statistiques
           <add-new-item
-            @new-item="newStat"
-            :valueList="
-              this.$root.$utilsFunctions.getNameList(this.statsAvailable)
+            @insert-elem="
+              insertElementFromModel(statList, statsAvailable, $event)
             "
-            :excludeList="this.$root.$utilsFunctions.getNameList(this.statList)"
+            :valueList="
+              this.$root.$globalFunctions.objectSelection.getFieldList(
+                this.statsAvailable,
+                'name'
+              )
+            "
+            :excludeList="
+              this.$root.$globalFunctions.objectSelection.getFieldList(
+                this.statList,
+                'name'
+              )
+            "
           ></add-new-item>
         </v-card-title>
         <div
@@ -94,26 +104,39 @@
         <v-card-title
           >Points
           <add-new-item
-            @new-item="newPointCard"
+            @insert-elem="
+              insertElementFromModel(
+                pointCounterList,
+                pointsCounterAvailable,
+                $event
+              )
+            "
             :valueList="
-              this.$root.$utilsFunctions.getNameList(
-                this.pointsCounterAvailable
+              this.$root.$globalFunctions.objectSelection.getFieldList(
+                this.pointsCounterAvailable,
+                'name'
               )
             "
             :excludeList="
-              this.$root.$utilsFunctions.getNameList(this.pointCounterList)
+              this.$root.$globalFunctions.objectSelection.getFieldList(
+                this.pointCounterList,
+                'name'
+              )
             "
           ></add-new-item>
         </v-card-title>
         <div id="pointCardContainer" :class="['flexRow', 'flexWrap']">
           <point-counter
             v-for="pointCounter in this.pointCounterList"
-            @delete-item="deletePointCard(pointCounter)"
-            @update-item="updatePointCard"
+            @delete-item="deleteElement(pointCounterList, pointCounter)"
             :key="pointCounter.name"
-            :name-point="pointCounter.name"
-            :current-point-val="pointCounter.currentPoint"
-            :max-point-val="pointCounter.maxPoint"
+            :name="pointCounter.name"
+            :current-point-value.sync="pointCounter.currentPointValue"
+            :current-point-min="pointCounter.currentPointMin"
+            :current-point-max="pointCounter.currentPointMax"
+            :max-point-value.sync="pointCounter.maxPointValue"
+            :max-point-min="pointCounter.maxPointMin"
+            :max-point-max="pointCounter.maxPointMax"
             :colorVal="pointCounter.color"
             :isEditable="pointCounter.isEditable"
           ></point-counter>
@@ -125,12 +148,20 @@
         <v-card-title
           >Saisie de texte
           <add-new-item
-            @new-item="newTextArea"
+            @insert-elem="
+              insertElementFromModel(textAreaList, textAreaAvailable, $event)
+            "
             :valueList="
-              this.$root.$utilsFunctions.getNameList(this.textAreaAvailable)
+              this.$root.$globalFunctions.objectSelection.getFieldList(
+                this.textAreaAvailable,
+                'name'
+              )
             "
             :excludeList="
-              this.$root.$utilsFunctions.getNameList(this.textAreaList)
+              this.$root.$globalFunctions.objectSelection.getFieldList(
+                this.textAreaList,
+                'name'
+              )
             "
           ></add-new-item>
         </v-card-title>
@@ -172,65 +203,24 @@ export default {
       pointsCounterAvailable: [
         {
           name: "PV",
-          currentPoint: 0,
-          maxPoint: 200,
+          currentPointValue: 0,
+          currentPointMin: 0,
+          currentPointMax: 200,
+          maxPointValue: 200,
+          maxPointMin: 100,
+          maxPointMax: 300,
           color: "primary",
           isEditable: true
-        },
-        {
-          name: "Manamana",
-          currentPoint: 0,
-          maxPoint: 200,
-          color: "secondary",
-          isEditable: true
-        },
-        {
-          name: "Moneymoney",
-          currentPoint: 0,
-          maxPoint: 200,
-          color: "accent",
-          isEditable: false
-        },
-        {
-          name: "Folie",
-          currentPoint: 0,
-          maxPoint: 200,
-          color: "error",
-          isEditable: true
-        },
-        {
-          name: "Faim",
-          currentPoint: 0,
-          maxPoint: 200,
-          color: "warning",
-          isEditable: false
-        },
-        {
-          name: "Fatigue",
-          currentPoint: 0,
-          maxPoint: 200,
-          color: "info",
-          isEditable: true
-        },
-        {
-          name: "saipa",
-          currentPoint: 0,
-          maxPoint: 200,
-          color: "success",
-          isEditable: true
-        },
-        {
-          name: "COUCOU",
-          currentPoint: 0,
-          maxPoint: 200,
-          color: "success",
-          isEditable: true
-        },
-        {
-          name: "wazaaa",
-          currentPoint: 0,
-          maxPoint: 200,
-          color: "success",
+        }
+        ,{
+          name: "Mana",
+          currentPointValue: 0,
+          currentPointMin: 0,
+          currentPointMax: 200,
+          maxPointValue: 200,
+          maxPointMin: 100,
+          maxPointMax: 300,
+          color: "primary",
           isEditable: true
         }
       ],
@@ -277,57 +267,7 @@ export default {
           ].success
         }
       ],
-      pointCounterList: [
-        {
-          name: "PV",
-          currentPoint: 100,
-          maxPoint: 200,
-          color: "primary",
-          isEditable: false
-        },
-        {
-          name: "Manamana",
-          currentPoint: 100,
-          maxPoint: 200,
-          color: "secondary",
-          isEditable: true
-        },
-        {
-          name: "Moneymoney",
-          currentPoint: 100,
-          maxPoint: 200,
-          color: "accent",
-          isEditable: true
-        },
-        {
-          name: "Folie",
-          currentPoint: 100,
-          maxPoint: 200,
-          color: "error",
-          isEditable: true
-        },
-        {
-          name: "Faim",
-          currentPoint: 100,
-          maxPoint: 200,
-          color: "warning",
-          isEditable: true
-        },
-        {
-          name: "Fatigue",
-          currentPoint: 100,
-          maxPoint: 200,
-          color: "info",
-          isEditable: true
-        },
-        {
-          name: "saipa",
-          currentPoint: 100,
-          maxPoint: 200,
-          color: "success",
-          isEditable: false
-        }
-      ],
+      pointCounterList: [],
       textAreaList: [
         { name: "Description", value: "paysan de 3ieme classe" },
         { name: "Equipement", value: "une faux bien évidemment" }
@@ -338,39 +278,18 @@ export default {
     logger: function(obj) {
       console.log(obj);
     },
-    newPointCard: function(eventProp) {
-      const pointCounterModel = this.$root.$utilsFunctions.getItemByName(
-        this.pointsCounterAvailable,
-        eventProp.name
-      );
-      this.pointCounterList.push(pointCounterModel);
-    },
-    newStat: function(eventProp) {
-      const statModel = this.$root.$utilsFunctions.getItemByName(
-        this.statsAvailable,
-        eventProp.name
-      );
-      this.statList.push(statModel);
-    },
-    newTextArea: function(eventProp) {
-      const textAreaModel = this.$root.$utilsFunctions.getItemByName(
-        this.textAreaAvailable,
-        eventProp.name
-      );
-      this.textAreaList.push(textAreaModel);
-    },
-    deletePointCard: function(pointCardElem) {
-      this.pointCounterList.splice(
-        this.pointCounterList.indexOf(pointCardElem),
-        1
+    insertElementFromModel: function(dataList, modelList, event) {
+      // from the method use $event for the event param
+      dataList.push(
+        this.$root.$globalFunctions.objectSelection.filterItem(
+          modelList,
+          "name",
+          event.name
+        )
       );
     },
-    updatePointCard: function(event) {
-      const obj = this.$root.$utilsFunctions.getItemByName(
-        this.pointCounterList,
-        event.name
-      );
-      obj[event.fieldname] = event.value;
+    deleteElement: function(dataList, element) {
+      dataList.splice(dataList.indexOf(element), 1);
     },
     roll: function() {
       this.rollRes.value = Math.round(Math.random() * 100);

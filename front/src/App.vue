@@ -40,7 +40,7 @@ export default {
   width: 100%;
 }
 .vueContainerInner {
-  padding: 10vh 10vw;
+  padding: 1vh 10vw;
 }
 
 .centerElem {

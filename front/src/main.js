@@ -10,10 +10,10 @@ import "roboto-fontface/css/roboto/roboto-fontface.css";
 import "@mdi/font/css/materialdesignicons.css";
 
 import objectSelection from "./functions/objectSelection";
-import inputValidation from "./functions/inputValidation";
 import logger from "./functions/logger";
 
 Vue.config.productionTip = true;
+// test if prod: process.env.NODE_ENV === "development" (others modes: test, production)
 
 // global vue which allows component communication using events
 // use: in hook "created" of a conponent: this.$eventBus.$on("eventName", data)
@@ -21,15 +21,15 @@ Vue.config.productionTip = true;
 Vue.prototype.$eventBus = new Vue();
 
 // use: this.$root.$globalFunctions.moduleName.functionName
+// eg: $root.$globalFunctions.logger.consoleLog()
 Vue.prototype.$globalFunctions = {
   objectSelection,
-  inputValidation,
   logger
 };
 
 new Vue({
   router,
-  store,
+  store, // use this.$store to access vuex
   vuetify,
   render: h => h(App)
 }).$mount("#app");

@@ -1,0 +1,10 @@
+[
+  { "name": "Force", "min": 0, "max": 0, "value": 100 },
+  { "name": "Intelligence", "min": 0, "max": 0, "value": 100 },
+  { "name": "Charisme", "min": 0, "max": 0, "value": 100 },
+  { "name": "Perception", "min": 0, "max": 0, "value": 100 },
+  { "name": "Dextérité", "min": 0, "max": 0, "value": 100 },
+  { "name": "amour", "min": 0, "max": 0, "value": 100 },
+  { "name": "test1", "min": 0, "max": 0, "value": 100 },
+  { "name": "toast", "min": 0, "max": 0, "value": 100 }
+]

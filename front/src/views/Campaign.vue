@@ -81,20 +81,6 @@
               </tbody>
             </v-simple-table>
           </div>
-          <div id="intervalStatTableContainer">
-            <v-simple-table dense class="noTextSelection">
-              <tbody>
-                <tr
-                  v-for="stat in this.statIntervalTable"
-                  :key="stat.name"
-                  :style="{ backgroundColor: stat.color }"
-                >
-                  <td>{{ stat.name }}</td>
-                  <td>{{ stat.value }}</td>
-                </tr>
-              </tbody>
-            </v-simple-table>
-          </div>
         </div>
       </v-card>
     </div>
@@ -145,8 +131,8 @@
     </div>
     <div id="textareaContainer">
       <v-card>
-        <v-card-title
-          >Saisie de texte
+        <v-card-title>
+          Saisie de texte
           <add-new-item
             @insert-elem="
               insertElementFromModel(textAreaList, textAreaAvailable, $event)
@@ -180,26 +166,29 @@
 import PointCounter from "@/components/PointCounter";
 import TextArea from "@/components/TextArea";
 import AddNewItem from "@/components/AddNewItem";
+// import apiCalls from "@/apiCalls";
+
+// console.log("VUE_APP_API_BASEURL: " + process.env.VUE_APP_API_BASEURL);
+// console.log("VUE_APP_API_STATS: " + process.env.VUE_APP_API_STATS);
+// apiCalls.stats
+//   .get(22)
+//   .then(function(response) {
+//     console.log(response.data);
+//   })
+//   .catch(function(error) {
+//     console.log(error);
+//   });
 
 export default {
-  name: "Home",
+  name: "Campaign",
   components: { PointCounter, TextArea, AddNewItem },
-  data: function() {
+  data() {
     return {
       characterName: "Jean branlepaune",
       manualRollDiceNumber: 1,
       manualRollDiceFaces: 100,
       rollRes: { value: 0, label: "C'EST PAS BON JEAN MICHEL" },
-      statsAvailable: [
-        { name: "Force", min: 0, max: 0, value: 100 },
-        { name: "Intelligence", min: 0, max: 0, value: 100 },
-        { name: "Charisme", min: 0, max: 0, value: 100 },
-        { name: "Perception", min: 0, max: 0, value: 100 },
-        { name: "Dextérité", min: 0, max: 0, value: 100 },
-        { name: "amour", min: 0, max: 0, value: 100 },
-        { name: "test1", min: 0, max: 0, value: 100 },
-        { name: "toast", min: 0, max: 0, value: 100 }
-      ],
+      statsAvailable: [],
       pointsCounterAvailable: [
         {
           name: "PV",
@@ -211,16 +200,71 @@ export default {
           maxPointMax: 300,
           color: "primary",
           isEditable: true
-        }
-        ,{
-          name: "Mana",
-          currentPointValue: 0,
+        },
+        {
+          name: "1",
+          currentPointValue: "MES COUILLES",
           currentPointMin: 0,
           currentPointMax: 200,
           maxPointValue: 200,
           maxPointMin: 100,
           maxPointMax: 300,
-          color: "primary",
+          color: "secondary",
+          isEditable: true
+        },
+        {
+          name: "2",
+          currentPointValue: "MES COUILLES",
+          currentPointMin: 0,
+          currentPointMax: 200,
+          maxPointValue: 200,
+          maxPointMin: 100,
+          maxPointMax: 300,
+          color: "accent",
+          isEditable: true
+        },
+        {
+          name: "3",
+          currentPointValue: "MES COUILLES",
+          currentPointMin: 0,
+          currentPointMax: 200,
+          maxPointValue: 200,
+          maxPointMin: 100,
+          maxPointMax: 300,
+          color: "error",
+          isEditable: true
+        },
+        {
+          name: "4",
+          currentPointValue: "MES COUILLES",
+          currentPointMin: 0,
+          currentPointMax: 200,
+          maxPointValue: 200,
+          maxPointMin: 100,
+          maxPointMax: 300,
+          color: "warning",
+          isEditable: true
+        },
+        {
+          name: "5",
+          currentPointValue: "MES COUILLES",
+          currentPointMin: 0,
+          currentPointMax: 200,
+          maxPointValue: 200,
+          maxPointMin: 100,
+          maxPointMax: 300,
+          color: "info",
+          isEditable: true
+        },
+        {
+          name: "6",
+          currentPointValue: "MES COUILLES",
+          currentPointMin: 0,
+          currentPointMax: 200,
+          maxPointValue: 200,
+          maxPointMin: 100,
+          maxPointMax: 300,
+          color: "success",
           isEditable: true
         }
       ],
@@ -237,36 +281,6 @@ export default {
         { name: "Dextérité", value: 75 },
         { name: "amour", value: -40 }
       ],
-      statIntervalTable: [
-        {
-          name: "Echec critique",
-          value: 100,
-          color: this.$vuetify.theme.themes[
-            this.$vuetify.theme.isDark ? "dark" : "light"
-          ].error
-        },
-        {
-          name: "Echec mineur",
-          value: 60,
-          color: this.$vuetify.theme.themes[
-            this.$vuetify.theme.isDark ? "dark" : "light"
-          ].warning
-        },
-        {
-          name: "Réussite mineure",
-          value: 23,
-          color: this.$vuetify.theme.themes[
-            this.$vuetify.theme.isDark ? "dark" : "light"
-          ].info
-        },
-        {
-          name: "Réussite majeure",
-          value: 5,
-          color: this.$vuetify.theme.themes[
-            this.$vuetify.theme.isDark ? "dark" : "light"
-          ].success
-        }
-      ],
       pointCounterList: [],
       textAreaList: [
         { name: "Description", value: "paysan de 3ieme classe" },
@@ -275,9 +289,6 @@ export default {
     };
   },
   methods: {
-    logger: function(obj) {
-      console.log(obj);
-    },
     insertElementFromModel: function(dataList, modelList, event) {
       // from the method use $event for the event param
       dataList.push(
@@ -295,6 +306,16 @@ export default {
       this.rollRes.value = Math.round(Math.random() * 100);
     }
   }
+  // ,mounted() { // pas de sens
+  //   apiCalls.statsAvailable
+  //     .get(22, 22)
+  //     .then(function(response) {
+  //       this.statsAvailable = response.data;
+  //     })
+  //     .catch(function(error) {
+  //       console.log(error);
+  //     });
+  // }
 };
 </script>
 

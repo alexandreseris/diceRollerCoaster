@@ -13,24 +13,17 @@ const routes = [
     icon: "mdi-home"
   },
   {
-    path: "/NewProfil",
-    name: "NewProfil",
-    component: () => import("../views/NewProfil.vue"),
-    label: "Nouveau profile",
-    icon: "mdi-plus"
-  },
-  {
-    path: "/SelectProfil",
-    name: "SelectProfil",
-    component: () => import("../views/SelectProfil.vue"),
-    label: "Selectionner un profile",
-    icon: "mdi-format-list-bulleted"
+    path: "/Campaign",
+    name: "Campaign",
+    component: () => import("../views/Campaign.vue"),
+    label: "Campagne",
+    icon: "mdi-dice-6"
   },
   {
     path: "/Settings",
     name: "Settings",
     component: () => import("../views/Settings.vue"),
-    label: "Paramètres",
+    label: "Paramètres utilisateur",
     icon: "mdi-cogs"
   }
 ];

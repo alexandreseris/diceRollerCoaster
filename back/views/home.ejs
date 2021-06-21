@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dice Roller Coaster</title>
+  <link rel="icon" href="/images/icon.svg">
+  <link rel="stylesheet" href="/css/var.css">
+  <link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+
+  <div id="contentcontainer">
+
+    <div id="presentation">
+      <h1 id="presentationTitle">DICE VICE</h1>
+      <h3 id="presentationSubtitle">🎲 Roulez sans lendemain 🎲</h3>
+      <p id="presentationDescription">une application conçue pour simplifier vos jeux de rôle</p>
+      <p id="presentationJk">bande de gros geek</p>
+    </div>
+
+    <div id="userContainer" class="<% if (homePageActiveForm === homePageActiveFormTypes.LOGIN) { %>login<% } else {%>newuser<%} %>">
+      <div id="userSwitcher">
+        <button class="formBlock <% if (homePageActiveForm === homePageActiveFormTypes.LOGIN) { %>currentSwitcher<% } %>" id="loginSwitch">Connexion</button>
+        <button class="formBlock <% if (homePageActiveForm === homePageActiveFormTypes.NEWUSER) { %>currentSwitcher<% } %>" id="newUserSwitch">Inscription</button>
+      </div>
+
+      <div id="login" class="<% if (homePageActiveForm === homePageActiveFormTypes.NEWUSER) { %>hidden<% } %>">
+
+        <form action="loginverify" method="post">
+
+          <div id="newuserInfo" class="flashMessageContainer">
+            <% if (newuserInfo !== undefined) { %>
+              <% newuserInfo.forEach(message => { %>
+                <p class="flashMessageInfo overflowHide"><%= message %></p>
+              <% }) %>
+            <% } %>
+          </div>
+
+          <div id="loginError" class="flashMessageContainer">
+            <% if (loginError !== undefined) { %>
+              <% loginError.forEach(message => { %>
+                <p class="flashMessageError overflowHide"><%= message %></p>
+              <% }) %>
+            <% } %>
+          </div>
+
+          <div class="verticalMargin">
+            <label class="formBlock" for="username">Nom d'utilisateur</label>
+            <input class="formBlock overflowHide" type="text" name="username" id="username" value="Jeanjean2" required>
+          </div>
+          <div class="verticalMargin">
+            <label class="formBlock" for="password">Mot de passe</label>
+            <input class="formBlock overflowHide" type="password" name="password" id="password" value="6854sdfbsfbSFRBIVKHKHNSFDBVKH2442sfbsfbkjhjsfb" required>
+          </div>
+          <div class="verticalMargin">
+            <input class="formBlock" id="submitLogin" type="submit" value="Se connecter">
+          </div>
+        </form>
+      </div>
+
+      <div id="newUser" class="<% if (homePageActiveForm === homePageActiveFormTypes.LOGIN) { %>hidden<% } %>">
+
+        <div id="newuserError" class="flashMessageContainer">
+          <% if (newuserError !== undefined) { %>
+            <% newuserError.forEach(message => { %>
+              <p class="flashMessageError overflowHide"><%= message %></p>
+            <% }) %>
+          <% } %>
+        </div>
+
+        <form action="newuser" method="post">
+          <div class="verticalMargin">
+            <label class="formBlock" for="usernameNewuser">Votre nom d'utilisateur</label>
+            <input class="formBlock overflowHide" type="text" name="username" id="usernameNewuser" required>
+          </div>
+          <div class="verticalMargin">
+            <label class="formBlock" for="passwordNewuser">Votre mot de passe</label>
+            <input class="formBlock overflowHide" type="password" name="password" id="passwordNewuser" required>
+          </div>
+          <div class="verticalMargin">
+            <label class="formBlock" for="emailNewuser">Votre adresse mail</label>
+            <input class="formBlock overflowHide" type="email" name="email" id="emailNewuser" required>
+          </div>
+          <div class="verticalMargin">
+            <input class="formBlock" id="submitUser" type="submit" value="Créer">
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</body>
+<script defer type="text/javascript" src="/js/home.js"></script>
+</html>

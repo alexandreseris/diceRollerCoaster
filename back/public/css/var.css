@@ -1,0 +1,11 @@
+/* use: prop: var(--varName) */
+:root {
+    --mainBackground: rgb(25, 25, 25);
+    --leftBackground: rgb(15, 15, 15);
+    --fontColor: rgb(240, 240, 240);
+    --errorColor: rgb(136, 45, 45);
+    --infoColor: rgb(67, 108, 168);
+    --loginColor: rgb(20, 108, 67);
+    --newUserColor: rgb(76, 129, 104);
+    --transparent: rgba(0, 0, 0, 0);
+}

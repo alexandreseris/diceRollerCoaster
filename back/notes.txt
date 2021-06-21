@@ -1,0 +1,5 @@
+à faire:
+commencer l'intégration du modèle de l'api
+sécuriser les authent des failles courantes
+bug sur l'affichage des erreurs pour la page d'accueil coté création utilisateurs, les erreurs sont collées aux boutons de switch
+passer le tout en responsive

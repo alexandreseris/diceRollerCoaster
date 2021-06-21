@@ -1,0 +1,87 @@
+Lang
+    id varchar(3) NOT NULL (PK) -- cf https://en.wikipedia.org/wiki/List_of_ISO_639-3_codes
+    name varchar(50)
+Translation
+    idLang (PK, FK Lang)
+    key (PK) varchar(100)
+    value varchar(500)
+User
+    id (PK)
+    username varchar(60) UNIQ NOT NULL
+    email varchar(255) UNIQ NOT NULL
+    passwordHash varchar(60) NOT NULL
+FriendStatut
+    id (PK) varchar(3)
+FriendStatutTranslation
+    idFriendStatut (PK, FK FriendStatut)
+    idLang (PK, FK Lang)
+    name varchar(20)
+User_Friend -- 1 User to many Friend, 1 Friend to many User. Relations are stored once so Friend request will be User.id in (User_Friend.idUser, User_Friend.idFriend)
+    idUser (PK, FK User)
+    idFriend (PK, FK User)
+    idFriendStatut (FK FriendStatut)
+RollSystem
+	id (PK) varchar(50) -- must match the file name for the corresponding roll system
+RollSystemTranslation
+	idRollSystem (PK, FK RollSystem)
+	idLang (PK, FK Lang)
+	name varchar(50) NOT NULL
+	description varchar(200) NOT NULL
+Party
+    id (PK)
+    idRollSystem (FK RollSystem)
+    name varchar(255) NOT NULL INDEX -- uniq for User_Party
+    currentNote varhcar(1000) NOT NULL -- on validation: content inserted on PartyNote then = ''
+PartyColor
+    idParty (PK, FK Party)
+    name (PK) varchar(50) NOT NULL
+    value varchar(50) NOT NULL -- css format rgba(x,x,x,x)
+PartyNote
+    idParty (PK, FK Party)
+    createdAt datetime (PK)
+    content varchar(1000) NOT NULL
+User_Party -- 1 User to many Party, 1 Party to many User
+    idParty (PK, FK Party)
+    idUser (PK, FK User)
+    isGm bool NOT NULL INDEX -- at least one per party (probably the one who created the party)
+    -- THE VALIDATION UNIQ PARTY NAME PER GM USER GOES HERE, no choice ;)
+Character
+    id (PK)
+    idUser (FK User) NULL -- null if set by the gm for a NPC
+    idParty (FK Party)
+    name varchar(255) NOT NULL INDEX
+    description varchar(255) NOT NULL
+    INDEX UNIQ: idUser, idParty, name
+Equipment
+    id (PK)
+    idCharacter (FK)
+    name varchar(255)
+    description varchar(255)
+Point
+    id (PK)
+    idCharacter (FK)
+    value int NOT NULL
+    minValue int NULL
+    maxValue int NOT NULL
+    name varchar(50) NOT NULL
+    color varchar(50) NULL -- css format rgba(x,x,x,x)
+Statistic
+    id (PK)
+    idParty (FK)
+    idPartyStatistic (FK) NULL
+    value int NOT NULL
+    minValue int NOT NULL
+    maxValue int NOT NULL
+    name varchar(50) NOT NULL
+    type varchar(50) NULL
+CharacterNote
+    id (PK)
+    idParty (FK)
+    content varchar(1000) NOT NULL
+    name NOT NULL
+Chat
+    id (PK)
+    idCharacter (FK Character)
+    createdAt datetime NOT NULL
+    content varchar(500) NOT NULL
+    format varchar(500) NULL -- css format rgba(x,x,x,x)

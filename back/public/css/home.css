@@ -1,0 +1,175 @@
+/* fonts */
+@font-face {
+  font-family: 'content';
+  src: url('/fonts/BagnardSans.otf') format('truetype');
+}
+
+@font-face {
+  font-family: 'title';
+  /* src: url('/fonts/BluuNext-Bold.otf') format('truetype'); */
+  src: url('/fonts/GapSansBold.ttf') format('truetype');
+  /* src: url('/fonts/LeagueGothic-Regular.otf') format('truetype'); */
+}
+
+/* GLOBAL STYLES */
+* {
+    box-sizing: border-box;
+}
+body {
+    background-color: var(--mainBackground);
+    font-family: 'content';
+}
+
+.hidden {
+  display: none;
+}
+
+/* BOXES SETTINGS */
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+#contentcontainer {
+  height: 100%;
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  padding: 10vh;
+}
+#presentation {
+  width: 50%;
+  height: 100%;
+  padding: 1vh;
+  border-radius: 2% 0% 0% 2%;
+  background-color: var(--leftBackground);
+  color: var(--fontColor);
+  background-image: url("/images/diceBackground.svg");
+  background-repeat: no-repeat;
+  background-size: 50%;
+  background-position: center;
+  text-align: center;
+}
+#userContainer {
+  height: 100%;
+  width: 50%;
+  border-radius: 0% 2% 2% 0%;
+  background-color: var(--fontColor);
+  background-image: url("/images/iconesBackground.svg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: bottom;
+  color: var(--leftBackground);
+  padding: 5vh;
+  text-align: center;
+}
+#login div, #newUser div {
+  display: flex;
+  flex-direction: column;
+}
+.verticalMargin {
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+#userSwitcher {
+  display: flex;
+  flex-direction: row;
+}
+#userContainer > div > form {
+  padding-top: 10%;
+}
+.formBlock {
+  font-family: inherit;
+  width: 50%;
+  margin: auto;
+  height: 2em;
+  font-size: 1.3em;
+}
+
+/* CONTENT SETTINGS */
+.overflowHide {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#presentationTitle {
+  font-family: 'title';
+  font-size: xx-large;
+  letter-spacing: 0.5em;
+}
+#presentationDescription {
+    font-style: italic;
+}
+#presentationJk {
+    font-size: 0.7em;
+    font-style: italic;
+}
+.flashMessageContainer {
+  width: 50%;
+  margin: auto;
+}
+.flashMessageError, .flashMessageInfo {
+  padding: 0.5em;
+  margin: 0;
+  margin-top: 0.2em;
+  color: var(--fontColor);
+}
+.flashMessageError {
+  background-color: var(--errorColor);
+}
+.flashMessageInfo {
+  background-color: var(--infoColor);
+}
+button, input[type="submit"] {
+  border: none;
+  color: var(--fontColor);
+  cursor: pointer;
+}
+input[type="submit"] {
+  background-color: var(--leftBackground);
+  color: var(--fontColor);
+}
+
+
+#userContainer.login {
+  background-color: var(--loginColor);
+}
+#userContainer.newuser {
+  background-color: var(--newUserColor);
+}
+
+#newUserSwitch, #loginSwitch {
+  background-color: var(--transparent);
+  margin: initial;
+  font-weight: bold;
+  width: 33%;
+}
+#newUserSwitch {
+  margin-right: auto;
+  color: var(--fontColor);
+  background-color: var(--newUserColor);
+}
+#loginSwitch {
+  margin-left: auto;
+  color: var(--fontColor);
+  background-color: var(--loginColor);
+}
+#newUserSwitch.currentSwitcher {
+  font-weight: bold;
+  /* color: var(--leftBackground); */
+  background-color: var(--leftBackground);
+  cursor: default;
+}
+#loginSwitch.currentSwitcher {
+  font-weight: bold;
+  background-color: var(--leftBackground);
+  /* color: var(--leftBackground); */
+  cursor: default;
+}
+
+input[type="text"], input[type="password"], input[type="email"] {
+  background-color: var(--leftBackground);
+  color: var(--fontColor);
+  text-align: center;
+  border: none;
+}

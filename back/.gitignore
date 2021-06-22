@@ -23,3 +23,8 @@ pnpm-debug.log*
 *.sw?
 
 ignoregit/
+
+
+vueapp/*
+logs/*
+database.db

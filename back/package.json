@@ -18,7 +18,7 @@
     "console-log-level": "^1.4.1",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-session": "^1.17.1",
     "morgan": "^1.10.0",
     "passport": "^0.4.1",
